@@ -1,0 +1,18 @@
+Automatically\ import\ libraries=true
+FbStatus=190
+FsStatus=20
+FuStatus=114
+JANTJE.TEMPLATE_USE_DEFAULT=defaultIno
+Last\ Used\ Upload\ port=COM3
+Last\ used\ Board=esp32
+Last\ used\ Boards\ file=D\:\\SCE\\Sloeber\\arduinoPlugin\\packages\\esp32\\hardware\\esp32\\1.0.4\\boards.txt
+Last\ used\ Examples=
+Private\ Library\ Path=
+Private\ hardware\ Path=
+Use\ the\ algoritm\ to\ find\ the\ toolchain\ like\ Arduino\ IDE=true
+add\ pragma\ once\ to\ headers=true
+eclipse.preferences.version=1
+lFsStatus=306
+last\ Used\ upload\ Protocol=Default
+last\ used\ Board\ custom\ option\ selections=cpu\=atmega2560\nCPUFreq\=240\nDebugLevel\=verbose\nFlashFreq\=80\nFlashMode\=qio\nFlashSize\=4M\nPartitionScheme\=default\nPSRAM\=disabled\nUploadSpeed\=921600
+use\ bonjour\ service\ to\ find\ devices=true

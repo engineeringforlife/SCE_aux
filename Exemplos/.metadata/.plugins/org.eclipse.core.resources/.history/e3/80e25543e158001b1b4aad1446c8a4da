@@ -1,0 +1,118 @@
+/* Departamento de Engenharia Electrotécnica - ESTG
+  Tutorial I2C - Exemplo 1
+  - Leitura da temperatura medida pelo sensor
+  TCN75A usando a
+  comunicação I2C
+  - O valor de temperatura lido é apresentado na
+  interface USART
+  - ESP32 SCL pin 22
+  - ESP32 SDA pin 21
+*/
+
+/*
+#include "Arduino.h"
+#include <Wire.h>
+
+
+// Variáveis globais
+//int TCN75A_Address = 0b01001000; // Endereço I2C de 7 - bit do sensor
+int SI7006A20_I2C_ADDR = 0x40;
+int reading = 0;
+float temperature = 0;
+
+
+void setup() {
+
+	// Inicialização da comunicação USART e mensagem inicial
+  Serial.begin(9600);
+  Serial.println("Teste I2C: Sensor de Temperatura");
+
+  // Inicialização da comunicação I2C
+  Wire.begin();
+
+  // Inicio de comunicação
+  Wire.beginTransmission(SI7006A20_I2C_ADDR);
+
+  // Seleção do endereço do registo de temperatura
+  Wire.write(0xF3);
+
+  // Fim de comunicação
+  Wire.endTransmission();
+}
+
+
+void loop() {
+
+  // Pedir o valor de temperatura
+  Wire.requestFrom(SI7006A20_I2C_ADDR, 2);
+
+
+  // Verificar se recebeu dados
+  if (Wire.available() >= 2) {
+    // Ler o valor recebido (pag.16)
+    reading = Wire.read();
+    reading = reading << 8;
+
+
+    // Ler o valor recebido (pag.16)
+    reading |= Wire.read();
+    //reading = reading >> 4;
+  }
+
+
+  // Conversao 4 bits da componente decimal
+  temperature = (float) ((175.72 * reading) / 65536.0) - 46.85;
+  Serial.println(temperature);
+  delay(500);
+}
+
+
+*/
+
+
+
+/*********
+  Rui Santos
+  Complete project details at https://randomnerdtutorials.com
+*********/
+
+#include <Wire.h>
+
+void setup() {
+  Wire.begin();
+  Serial.begin(115200);
+  Serial.println("\nI2C Scanner");
+}
+
+void loop() {
+  byte error, address;
+  int nDevices;
+  Serial.println("Scanning...");
+  nDevices = 0;
+  for(address = 1; address < 127; address++ ) {
+    Wire.beginTransmission(address);
+    error = Wire.endTransmission();
+    if (error == 0) {
+      Serial.print("I2C device found at address 0x");
+      if (address<16) {
+        Serial.print("0");
+      }
+      Serial.println(address,HEX);
+      nDevices++;
+    }
+    else if (error==4) {
+      Serial.print("Unknow error at address 0x");
+      if (address<16) {
+        Serial.print("0");
+      }
+      Serial.println(address,HEX);
+    }
+  }
+  if (nDevices == 0) {
+    Serial.println("No I2C devices found\n");
+  }
+  else {
+    Serial.println("done\n");
+  }
+  delay(5000);
+}

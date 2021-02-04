@@ -1,0 +1,14 @@
+10:57:10 **** Incremental Build of configuration Release for project test4 ****
+"C:\\DEV\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
+C:/DEV/Sloeber/arduinoPlugin/tools/make/make --no-print-directory pre-build
+cmd /c if exist "C:\DEV\workspace_sloeber\test4\partitions.csv" copy /y "C:\DEV\workspace_sloeber\test4\partitions.csv" "C:\DEV\workspace_sloeber\test4\Release\partitions.csv"
+cmd /c if not exist "C:\DEV\workspace_sloeber\test4\Release\partitions.csv" copy "C:\DEV\Sloeber\/arduinoPlugin/packages/ESP32\tools\partitionsdefault.csv" "C:\DEV\workspace_sloeber\test4\Release\partitions.csv"
+O sistema n∆o conseguiu localizar o ficheiro especificado.
+makefile:103: recipe for target 'pre-build' failed
+make[1]: *** [pre-build] Error 1
+makefile:64: recipe for target 'all' failed
+make: *** [all] Error 2
+"C:/DEV/Sloeber/arduinoPlugin/tools/make/make all" terminated with exit code 2. Build might be incomplete.
+
+10:57:10 Build Failed. 4 errors, 0 warnings. (took 582ms)
+

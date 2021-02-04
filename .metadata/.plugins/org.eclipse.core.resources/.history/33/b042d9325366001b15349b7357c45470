@@ -1,0 +1,304 @@
+#include "Arduino.h"
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "esp_system.h"
+#include "nvs_flash.h"
+#include <Wire.h>
+
+// SI7006-A20 I2C address is 0x40(64)
+#define AddrSI7006 0x40
+
+
+
+char tempComand = 0xF3;
+char humComand = 0xF5;
+
+
+#define mainSENDER_1    1
+#define mainSENDER_2    2
+#define mainSENDER_3    3
+
+
+static void vSenderSI7006( void *pvParameters );
+static void vSenderTask( void *pvParameters );
+static void vReceiverTask( void *pvParameters );
+
+
+/*-----------------------------------------------------------*/
+
+QueueHandle_t xQueue;
+typedef struct
+{
+  float ucValue1;
+  float ucValue2;
+  float ucValue3;
+  float ucSource;
+} xData;
+
+
+static const xData xStructsToSend[ 3 ] =
+{
+  { 100, 0, 0, mainSENDER_1 }, /* Used by Sender1. */
+  { 200, 0, 0, mainSENDER_2 },  /* Used by Sender2. */
+  { 203, 0, 0, mainSENDER_3 }
+};
+
+void setup( void )
+{
+
+  Wire.begin();
+  // Start I2C transmission
+  Wire.beginTransmission(AddrSI7006);
+  // Stop I2C transmission
+  Wire.endTransmission();
+  delay(300);
+
+  Serial.begin(115200);
+  xQueue = xQueueCreate( 5, sizeof( xData ) );
+
+  if ( xQueue != NULL )
+  {
+    /* Create two instances of the task that will write to the queue.  The
+      parameter is used to pass the structure that the task should write to the
+      queue, so one task will continuously send xStructsToSend[ 0 ] to the queue
+      while the other task will continuously send xStructsToSend[ 1 ].  Both
+      tasks are created at priority 2 which is above the priority of the receiver. */
+    xTaskCreatePinnedToCore( vSenderTask, "Sender1", 1024, ( void * ) & ( xStructsToSend[ 0 ] ),2, NULL, 1);
+    xTaskCreatePinnedToCore( vSenderTask, "Sender2",   1024, ( void * ) & ( xStructsToSend[ 1 ] ), 2, NULL, 1);
+  //  xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "Sender3", 1024, NULL , 3, NULL, 1);
+    xTaskCreatePinnedToCore( vSenderSI7006_HUM, "Sender4", 1024, NULL, 3, NULL, 1);
+    xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "Sender5", 1024, NULL, 3, NULL, 1);
+
+
+    /* Create the task that will read from the queue.  The task is created with
+      priority 1, so below the priority of the sender tasks. */
+    xTaskCreatePinnedToCore( vReceiverTask, "Receiver", 1024, NULL, 1, NULL, 1);
+
+    /* Start the scheduler so the created tasks start executing. */
+    //vTaskStartScheduler();
+  }
+  else
+  {
+    /* The queue could not be created. */
+  }
+
+  /* If all is well we will never reach here as the scheduler will now be
+    running the tasks.  If we do reach here then it is likely that there was
+    insufficient heap memory available for a resource to be created. */
+  //  for( ;; );
+  //  return 0;
+}
+/*-----------------------------------------------------------*/
+
+static void vSenderTask( void *pvParameters )
+{
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+
+  /* As per most tasks, this task is implemented within an infinite loop. */
+  for ( ;; )
+  {
+    /* The first parameter is the queue to which data is being sent.  The
+      queue was created before the scheduler was started, so before this task
+      started to execute.
+
+      The second parameter is the address of the structure being sent.  The
+      address is passed in as the task parameter.
+
+      The third parameter is the Block time - the time the task should be kept
+      in the Blocked state to wait for space to become available on the queue
+      should the queue already be full.  A block time is specified as the queue
+      will become full.  Items will only be removed from the queue when both
+      sending tasks are in the Blocked state.. */
+    xStatus = xQueueSendToBack( xQueue, pvParameters, xTicksToWait );
+
+    if ( xStatus != pdPASS )
+    {
+      /* We could not write to the queue because it was full - this must
+        be an error as the receiving task should make space in the queue
+        as soon as both sending tasks are in the Blocked state. */
+      Serial.print( "EX11: Could not send to the queue.\r\n" );
+    }
+
+    /* Allow the other sender task to execute. */
+    taskYIELD();
+  }
+}
+
+
+
+static void vSenderSI7006_HUM( void *pvParameters )
+{
+  xData xSenderStructure;
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+  float humidity =0.0;
+  float temp= 0.0;
+  float ctemp = 0.0;
+  uint8_t dataT[2] = {0};
+  uint8_t dataH[2] = {0};
+//char* measurementComand;
+
+//  measurementComand = (char*)pvParameters;
+  for ( ;; )
+  {
+	    // Start I2C transmission
+	    Wire.beginTransmission(AddrSI7006);
+	    // Send HUMIDITY measurement command, NO HOLD MASTER
+	    Wire.write(0xF5);
+	    // Stop I2C transmission
+	    Wire.endTransmission();
+	    delay(500);
+	    // Request 2 bytes of data
+	    Wire.requestFrom(AddrSI7006, 2);
+	    // Read 2 bytes of data
+	    // humidity msb, humidity lsb
+	    if(Wire.available() == 2)
+	    {
+	      dataH[0] = Wire.read();
+	      dataH[1] = Wire.read();
+	    }
+	    // Convert the data
+	    humidity  = ((dataH[0] * 256.0) + dataH[1]);
+	    humidity = ((125 * humidity) / 65536.0) - 6;
+
+	    xSenderStructure.ucSource = 3;
+	    xSenderStructure.ucValue1 = humidity;
+
+    xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
+
+    if ( xStatus != pdPASS )
+    {
+     /*  We could not write to the queue because it was full - this must
+        be an error as the receiving task should make space in the queue
+        as soon as both sending tasks are in the Blocked state.*/
+      Serial.print( "EX11: Could not send to the queue.\r\n" );
+    }
+
+  }
+}
+
+static void vSenderSI7006_TEMP( void *pvParameters )
+{
+  xData xSenderStructure;
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+  float humidity =0.0;
+  float temp= 0.0;
+  float ctemp = 0.0;
+  uint8_t dataT[2] = {0};
+
+
+  for ( ;; )
+  {
+
+
+	    // Start I2C transmission
+		Wire.beginTransmission(AddrSI7006);
+		// Send temperature measurement command, NO HOLD MASTER
+		Wire.write(0xF3);
+		// Stop I2C transmission
+		Wire.endTransmission();
+		delay(500);
+
+		// Request 2 bytes of data
+		Wire.requestFrom(AddrSI7006, 2);
+
+		// Read 2 bytes of data
+		// temp msb, temp lsb
+		if(Wire.available() == 2)
+		{
+		  dataT[0] = Wire.read();
+		  dataT[1] = Wire.read();
+		}
+
+		// Convert the data
+		temp  = ((dataT[0] * 256.0) + dataT[1]);
+		ctemp = ((175.72 * temp) / 65536.0) - 46.85;
+
+	    xSenderStructure.ucSource = 4;
+	    xSenderStructure.ucValue1 = ctemp;
+
+    xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
+
+    if ( xStatus != pdPASS )
+    {
+     /*  We could not write to the queue because it was full - this must
+        be an error as the receiving task should make space in the queue
+        as soon as both sending tasks are in the Blocked state.*/
+      Serial.print( "EX11: Could not send to the queue.\r\n" );
+    }
+
+  }
+}
+
+
+/*-----------------------------------------------------------*/
+
+static void vReceiverTask( void *pvParameters )
+{
+  /* Declare the structure that will hold the values received from the queue. */
+  xData xReceivedStructure;
+  portBASE_TYPE xStatus;
+
+  /* This task is also defined within an infinite loop. */
+  for ( ;; )
+  {
+    /* As this task only runs when the sending tasks are in the Blocked state,
+      and the sending tasks only block when the queue is full, this task should
+      always find the queue to be full.  3 is the queue length. */
+    if ( uxQueueMessagesWaiting( xQueue ) != 5 )
+    {
+      Serial.print( "EX11: Queue should have been full!\r\n" );
+    }
+
+    /* The first parameter is the queue from which data is to be received.  The
+      queue is created before the scheduler is started, and therefore before this
+      task runs for the first time.
+
+      The second parameter is the buffer into which the received data will be
+      placed.  In this case the buffer is simply the address of a variable that
+      has the required size to hold the received structure.
+
+      The last parameter is the block time - the maximum amount of time that the
+      task should remain in the Blocked state to wait for data to be available
+      should the queue already be empty.  A block time is not necessary as this
+      task will only run when the queue is full so data will always be available. */
+    xStatus = xQueueReceive( xQueue, &xReceivedStructure, 0 );
+
+    if ( xStatus == pdPASS )
+    {
+      /* Data was successfully received from the queue, print out the received
+        value and the source of the value. */
+      if ( xReceivedStructure.ucSource == mainSENDER_1 )
+      {
+        //Serial.print( "EX11: From Sender 1 = ");
+        //Serial.println(xReceivedStructure.ucValue);
+      }
+      else if(xReceivedStructure.ucSource == mainSENDER_2)
+      {
+        //Serial.print( "EX11: From Sender 2 = ");
+        //Serial.println( xReceivedStructure.ucValue );
+      }
+      else{
+    	  Serial.print( "EX11: From SI: Hum = ");
+		  Serial.print( xReceivedStructure.ucValue1 );
+		  Serial.print( ", Temp =  ");
+		  Serial.println( xReceivedStructure.ucValue2 );
+      }
+
+    }
+    else
+    {
+      /* We did not receive anything from the queue.  This must be an error
+        as this task should only run when the queue is full. */
+      Serial.print( "EX11: Could not receive from the queue.\r\n" );
+    }
+  }
+}
+//------------------------------------------------------------------------------
+void loop()
+{
+  vTaskDelete( NULL );
+}

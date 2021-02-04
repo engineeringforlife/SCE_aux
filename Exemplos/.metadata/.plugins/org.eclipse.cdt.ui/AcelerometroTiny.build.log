@@ -1,0 +1,89 @@
+19:35:52 **** Incremental Build of configuration Release for project AcelerometroTiny ****
+"D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
+'Do all objcopy commands'
+"D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/gen_esp32part.exe" -q "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/partitions/default.csv" "D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.partitions.bin"
+"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\tools\esptool_py\2.6.1/esptool.exe" --chip esp32 elf2image --flash_mode "dio" --flash_freq "80m" --flash_size "4MB" -o "D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.bin" "D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.elf"
+esptool.py v2.6
+'Finished building: AcelerometroTiny.hex'
+' '
+'Building target: AcelerometroTiny'
+'Printing size:'
+"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\tools\xtensa-esp32-elf-gcc\1.22.0-80-g6c4433a-5.2.0/bin/xtensa-esp32-elf-size" -A "D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.elf"
+D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.elf  :
+section                                                         size         addr
+.rtc.text                                                          0   1074528256
+.rtc.dummy                                                         0   1073217536
+.rtc.force_fast                                                    0   1073217536
+.rtc_noinit                                                        0   1342177792
+.rtc.force_slow                                                    0   1342177792
+.iram0.vectors                                                  1024   1074266112
+.iram0.text                                                    59564   1074267136
+.dram0.data                                                     9636   1073470304
+.noinit                                                            0   1073479940
+.dram0.bss                                                      6592   1073479944
+.flash.rodata                                                  50400   1061158944
+.flash.text                                                   110085   1074593816
+.debug_frame                                                   83248            0
+.debug_info                                                  1488676            0
+.debug_abbrev                                                 185139            0
+.debug_aranges                                                 32536            0
+.debug_ranges                                                  35256            0
+.debug_macro                                                  172609            0
+.debug_line                                                   736787            0
+.debug_str                                                    925171            0
+.comment                                                         419            0
+.xtensa.info                                                      56            0
+.xt.prop._ZN6Stream9readBytesEPhj                                 36            0
+.xt.prop._ZTV7TwoWire                                             12            0
+.xt.lit._ZN14HardwareSerialD5Ev                                    0            0
+.xt.prop._ZN14HardwareSerialD5Ev                                   0            0
+.xt.prop._ZN14HardwareSerialD2Ev                                  36            0
+.xt.prop._ZN14HardwareSerialD0Ev                                  36            0
+.xt.prop._ZTV14HardwareSerial                                     12            0
+.xt.lit._ZN9IPAddressD5Ev                                          0            0
+.xt.prop._ZN9IPAddressD5Ev                                         0            0
+.xt.prop._ZN9IPAddressD2Ev                                        36            0
+.xt.prop._ZN9IPAddressD0Ev                                        36            0
+.xt.prop._ZTV9IPAddress                                           12            0
+.xt.lit._ZN5Print5writeEPKc                                        8            0
+.xt.prop._ZN5Print5writeEPKc                                      60            0
+.xt.lit._ZN6String4initEv                                          0            0
+.xt.prop._ZN6String4initEv                                        48            0
+.xt.prop._ZNK6String3lenEv                                        60            0
+.xt.prop._ZN6String6setLenEi                                      60            0
+.xt.prop._ZNK6String7wbufferEv                                    48            0
+.xt.prop._ZTISt9exception                                         12            0
+.xt.prop._ZTISt9bad_alloc                                         12            0
+.xt.prop._ZTVN10__cxxabiv117__class_type_infoE                    12            0
+.xt.lit._ZNK9__gnu_cxx24__concurrence_lock_error4whatEv            8            0
+.xt.lit._ZNK9__gnu_cxx26__concurrence_unlock_error4whatEv          8            0
+.xt.lit._ZN9__gnu_cxx24__concurrence_lock_errorD5Ev                8            0
+.xt.lit._ZN9__gnu_cxx26__concurrence_unlock_errorD5Ev              8            0
+.xt.lit._ZN9__gnu_cxx7__mutex4lockEv                               8            0
+.xt.lit._ZN9__gnu_cxx13__scoped_lockD5Ev                           8            0
+.xt.prop._ZNK9__gnu_cxx24__concurrence_lock_error4whatEv          48            0
+.xt.prop._ZNK9__gnu_cxx26__concurrence_unlock_error4whatEv        48            0
+.xt.prop._ZN9__gnu_cxx24__concurrence_lock_errorD5Ev              12            0
+.xt.prop._ZN9__gnu_cxx26__concurrence_unlock_errorD5Ev            12            0
+.xt.prop._ZN9__gnu_cxx7__mutex4lockEv                             60            0
+.xt.prop._ZN9__gnu_cxx13__scoped_lockD5Ev                         12            0
+.xt.prop._ZN9__gnu_cxx24__concurrence_lock_errorD2Ev              36            0
+.xt.prop._ZN9__gnu_cxx26__concurrence_unlock_errorD2Ev            36            0
+.xt.prop._ZN9__gnu_cxx24__concurrence_lock_errorD0Ev              36            0
+.xt.prop._ZN9__gnu_cxx26__concurrence_unlock_errorD0Ev            36            0
+.xt.prop._ZN9__gnu_cxx13__scoped_lockD2Ev                         72            0
+.xt.prop._ZTIN9__gnu_cxx24__concurrence_lock_errorE               12            0
+.xt.prop._ZTIN9__gnu_cxx26__concurrence_unlock_errorE             12            0
+.xt.prop._ZTVN9__gnu_cxx24__concurrence_lock_errorE               12            0
+.xt.prop._ZTVN9__gnu_cxx26__concurrence_unlock_errorE             12            0
+.xt.prop._ZTVSt9bad_alloc                                         12            0
+.xt.prop._ZTVN10__cxxabiv120__si_class_type_infoE                 12            0
+.debug_loc                                                    525034            0
+Total                                                        4423296
+
+
+'Finished building target: AcelerometroTiny'
+' '
+
+19:35:53 Build Finished. 0 errors, 0 warnings. (took 1s.150ms)
+
