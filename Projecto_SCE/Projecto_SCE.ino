@@ -31,7 +31,7 @@ static void vSenderLTR329ALS01( void *pvParameters );
 static void vSenderLIS2HH12( void *pvParameters );
 //static void vSenderTask( void *pvParameters );
 static void vReceiverTask( void *pvParameters );
-
+static void vReceiverTask( void *pvParameters );
 
 /*-----------------------------------------------------------*/
 
@@ -100,7 +100,8 @@ void setup( void )
 	      xTaskCreatePinnedToCore( vSenderSI7006_HUM, "Sender4", 1024, NULL, 2, NULL, 1);
 	      xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "Sender5", 1024, NULL, 2, NULL, 1);
 	      xTaskCreatePinnedToCore( vSenderLTR329ALS01, "Sender6", 2048, NULL, 2, NULL, 1);
-	      xTaskCreatePinnedToCore( vSenderLIS2HH12, "Sender7", 2048, NULL, 2, NULL, 1);
+	      xTaskCreatePinnedToCore( vSenderLIS2HH12, "vSenderLIS2HH12", 2048, NULL, 2, NULL, 1);
+
 
 
 
@@ -159,7 +160,7 @@ static void vSenderSI7006_HUM( void *pvParameters )
 {
   xData xSenderStructure;
   portBASE_TYPE xStatus;
-  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
+  const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
   float humidity =0.0;
   float temp= 0.0;
   float ctemp = 0.0;
@@ -204,7 +205,6 @@ static void vSenderSI7006_HUM( void *pvParameters )
 
 	    if ( xStatus != pdPASS )
 	    {
-
 	      Serial.print( "SI7006_HUM Could not send to the queue.\r\n" );
 	    }
 	  }else{
@@ -232,7 +232,6 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 
   for ( ;; )
   {
-
 	  if( xSemaphoreTake( xMutex, ( 50/portTICK_PERIOD_MS ))){
 		  Serial.print( "vSenderSI7006_TEMP got access.\r\n" );
 		    // Start I2C transmission
@@ -241,7 +240,7 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 			Wire.write(0xF3);
 			// Stop I2C transmission
 			Wire.endTransmission();
-			delay(50);
+			delay(10);
 
 			// Request 2 bytes of data
 			Wire.requestFrom(AddrSI7006, 2);
@@ -258,7 +257,6 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 			// Convert the data
 			temp  = ((dataT[0] * 256.0) + dataT[1]);
 			ctemp = ((175.72 * temp) / 65536.0) - 46.85;
-
 		    xSenderStructure.ucSource = 4;
 		    xSenderStructure.ucValue1 = (float)millis();;
 
@@ -298,7 +296,7 @@ static void vSenderLTR329ALS01( void *pvParameters )
 					  Wire.write(0x8A); //low
 					  Wire.endTransmission();
 					  Wire.requestFrom((uint8_t)AddrLTR329AL, (uint8_t)1);
-					  delay(50);
+					  delay(10);
 					  if(Wire.available())
 						lsb = Wire.read();
 
@@ -306,7 +304,7 @@ static void vSenderLTR329ALS01( void *pvParameters )
 					  Wire.write(0x8B); //high
 					  Wire.endTransmission();
 					  Wire.requestFrom((uint8_t)AddrLTR329AL, (uint8_t)1);
-					  delay(50);
+					  delay(10);
 					  if(Wire.available())
 						msb = Wire.read();
 						xSemaphoreGive(xMutex);
@@ -314,13 +312,9 @@ static void vSenderLTR329ALS01( void *pvParameters )
 					  l = (msb<<8) | lsb;
 					  Serial.print( "ABOUT TO PINT CHANNEL OF LTR329ALS01\r\n" );
 					  Serial.println(l, DEC); //output in steps (16bit)
-
-
 					xSenderStructure.ucSource = 5;
 					xSenderStructure.ucValue1 = (float)millis();;
-
 					xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
-
 					if ( xStatus != pdPASS )
 					{
 					  Serial.print( "LTR329ALS01 Could not send to the queue.\r\n" );
@@ -361,7 +355,6 @@ static void vSenderLIS2HH12( void *pvParameters )
 	    }else{
 	    	Serial.print( "LIS2HH12 has sent to the queue.\r\n" );
 	    }
-
 	  }else{
 		  Serial.print( "vSenderLIS2HH12 failed to got access.\r\n" );
 	  }
@@ -376,13 +369,11 @@ static void vReceiverTask( void *pvParameters )
 {
   xData xReceivedStructure;
   portBASE_TYPE xStatus;
-
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
 
   for ( ;; )
   {
-
 		    if ( uxQueueMessagesWaiting( xQueue ) != 5 )
 		    {
 		      Serial.print( "EX11: Queue should have been full!\r\n" );
@@ -436,8 +427,6 @@ static void vReceiverTask( void *pvParameters )
 		    {
 		      Serial.print( "EX11: Could not receive from the queue.\r\n" );
 		    }
-
-
 
     vTaskDelayUntil( &xLastWakeTime, ( 500/portTICK_PERIOD_MS ) );
   }

@@ -55,16 +55,10 @@
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_ringbuf">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/ethernet">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/expat">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/fatfs">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/freemodbus">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/freertos">
@@ -98,6 +92,12 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/micro-ecc">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/mqtt">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/newlib">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/nghttp">
@@ -137,9 +137,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/tcpip_adapter">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/ulp">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/vfs">
@@ -259,7 +256,13 @@
 					<entry kind="macro" name="__DBL_DENORM_MIN__" value="((double)4.9406564584124654e-324L)">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__DBL_DIG__" value="unsigned int">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__DBL_DIG__" value="15">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__DBL_DIG__" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DBL_EPSILON__" value="((double)2.2204460492503131e-16L)">
@@ -274,22 +277,16 @@
 					<entry kind="macro" name="__DBL_HAS_QUIET_NAN__" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__DBL_HAS_QUIET_NAN__" value="6145">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__DBL_MANT_DIG__" value="53">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__DBL_MAX_10_EXP__" value="308">
+					<entry kind="macro" name="__DBL_MAX_10_EXP__" value="128">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DBL_MAX_EXP__" value="1024">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DBL_MAX__" value="((double)1.7976931348623157e+308L)">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__DBL_MAX__" value="1.7976931348623157e+308L">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DBL_MIN_10_EXP__" value="(-307)">
@@ -305,6 +302,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DEC128_MANT_DIG__" value="34">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__DEC128_MAX_EXP__" value="6145">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__DEC128_MAX__" value="9.999999999999999999999999999999999E6144DL">
@@ -460,9 +460,6 @@
 					<entry kind="macro" name="__GCC_ATOMIC_WCHAR_T_LOCK_FREE" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__GCC_HAVE_SYNC_COMPARE_AND_SWAP_1" value="1">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__GCC_HAVE_SYNC_COMPARE_AND_SWAP_2" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -559,6 +556,9 @@
 					<entry kind="macro" name="__INT_FAST64_TYPE__" value="long long int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__INT_FAST8_MAX__" value="0x7fffffff">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__INT_FAST8_TYPE__" value="int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -595,6 +595,9 @@
 					<entry kind="macro" name="__LDBL_DENORM_MIN__" value="4.9406564584124654e-324L">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__LDBL_DENORM_MIN__" value="1">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__LDBL_DIG__" value="15">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -616,10 +619,22 @@
 					<entry kind="macro" name="__LDBL_MAX_10_EXP__" value="308">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__LDBL_MAX_10_EXP__" value="4">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__LDBL_MAX_EXP__" value="1024">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__LDBL_MAX_EXP__" value="4">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__LDBL_MAX__" value="1.7976931348623157e+308L">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__LDBL_MIN_10_EXP__" value="(-307)">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__LDBL_MIN_10_EXP__" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__LDBL_MIN_EXP__" value="(-1021)">
@@ -697,28 +712,13 @@
 					<entry kind="macro" name="__SIZEOF_POINTER__" value="4">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__SIZEOF_PTRDIFF_T__" value="4">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__SIZEOF_SHORT__" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_SIZE_T__" value="4">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__SIZEOF_WCHAR_T__" value="2">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__SIZEOF_WINT_T__" value="4">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__SIZE_MAX__" value="0xffffffffU">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__SIZE_TYPE__" value="unsigned int">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__SSP__" value="1">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__STDC_HOSTED__" value="1">
@@ -954,9 +954,6 @@
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/jsmn">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/json">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/libsodium">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -991,9 +988,6 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/protobuf-c">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/protocomm">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="includePath" name="D:/SCE/Sloeber/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/pthread">
@@ -1114,6 +1108,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__ATOMIC_CONSUME" value="1">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__ATOMIC_CONSUME" value="long long unsigned int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__ATOMIC_RELAXED" value="0">
@@ -1308,13 +1305,7 @@
 					<entry kind="macro" name="__FLT_MIN_10_EXP__" value="(-37)">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__FLT_MIN_EXP__" value="(-125)">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__FLT_MIN__" value="1.1754943508222875e-38F">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__FLT_RADIX__" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__FP_FAST_FMAF" value="1">
@@ -1449,6 +1440,9 @@
 					<entry kind="macro" name="__INT_FAST16_TYPE__" value="int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__INT_FAST16_TYPE__" value="(-125)">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__INT_FAST32_MAX__" value="0x7fffffff">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
@@ -1527,13 +1521,13 @@
 					<entry kind="macro" name="__LDBL_MAX__" value="1.7976931348623157e+308L">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
+					<entry kind="macro" name="__LDBL_MIN_10_EXP__" value="(-307)">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
 					<entry kind="macro" name="__LDBL_MIN_EXP__" value="(-1021)">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__LDBL_MIN__" value="2.2250738585072014e-308L">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
-					<entry kind="macro" name="__LONG_LONG_MAX__" value="0x7fffffffffffffffLL">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__LONG_MAX__" value="0x7fffffffL">
@@ -1575,22 +1569,19 @@
 					<entry kind="macro" name="__SIG_ATOMIC_MAX__" value="0x7fffffff">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__SIG_ATOMIC_MIN__" value="(-__SIG_ATOMIC_MAX__ - 1)">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__SIG_ATOMIC_TYPE__" value="int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_DOUBLE__" value="8">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__SIZEOF_DOUBLE__" value="(-307)">
-						<flag value="BUILTIN|READONLY"/>
-					</entry>
 					<entry kind="macro" name="__SIZEOF_FLOAT__" value="4">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_INT__" value="4">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__SIZEOF_INT__" value="(-__SIG_ATOMIC_MAX__ - 1)">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__SIZEOF_LONG_DOUBLE__" value="8">
@@ -1630,6 +1621,9 @@
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__STDC_HOSTED__" value="1">
+						<flag value="BUILTIN|READONLY"/>
+					</entry>
+					<entry kind="macro" name="__STDC_HOSTED__" value="0x7fffffffffffffffLL">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__STDC_UTF_16__" value="1">
@@ -1728,10 +1722,10 @@
 					<entry kind="macro" name="__UINT_LEAST32_TYPE__" value="long unsigned int">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__UINT_LEAST64_MAX__" value="0xffffffffffffffffULL">
+					<entry kind="macro" name="__UINT_LEAST32_TYPE__" value="2">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
-					<entry kind="macro" name="__UINT_LEAST64_TYPE__" value="long long unsigned int">
+					<entry kind="macro" name="__UINT_LEAST64_MAX__" value="0xffffffffffffffffULL">
 						<flag value="BUILTIN|READONLY"/>
 					</entry>
 					<entry kind="macro" name="__UINT_LEAST8_MAX__" value="0xff">

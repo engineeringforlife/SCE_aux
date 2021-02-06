@@ -1,7 +1,7 @@
 Automatically\ import\ libraries=true
-FbStatus=325
-FsStatus=5
-FuStatus=257
+FbStatus=481
+FsStatus=10
+FuStatus=389
 JANTJE.TEMPLATE_USE_DEFAULT=defaultIno
 Last\ Used\ Upload\ port=COM3
 Last\ used\ Board=esp32
@@ -10,6 +10,6 @@ Last\ used\ Examples=
 Private\ Library\ Path=C\:/Users/2181042/Documents/Arduino/libraries
 Private\ hardware\ Path=C\:/Users/2181042/Documents/Arduino/hardware
 eclipse.preferences.version=1
-lFsStatus=583
+lFsStatus=856
 last\ Used\ upload\ Protocol=Default
 last\ used\ Board\ custom\ option\ selections=cpu\=atmega2560\nCPUFreq\=240\nDebugLevel\=verbose\nFlashFreq\=80\nFlashMode\=qio\nFlashSize\=4M\nPartitionScheme\=default\nPSRAM\=disabled\nUploadSpeed\=921600

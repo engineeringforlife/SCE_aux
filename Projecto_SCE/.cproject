@@ -23,6 +23,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/Wire/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/rhio-LIS2HH12/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/FreeRTOS/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.900489335" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -32,6 +33,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/Wire/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/rhio-LIS2HH12/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/FreeRTOS/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.2057160789" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -41,6 +43,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/core/variant}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/Wire/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/rhio-LIS2HH12/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto_SCE/libraries/FreeRTOS/src}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.891489986" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>
