@@ -76,5 +76,15 @@
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/libraries/Wire</locationURI>
 		</link>
+		<link>
+			<name>libraries/can_common-master</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/can_common-master/src</locationURI>
+		</link>
+		<link>
+			<name>libraries/esp32_can-master</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/esp32_can-master/src</locationURI>
+		</link>
 	</linkedResources>
 </projectDescription>

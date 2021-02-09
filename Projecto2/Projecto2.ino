@@ -9,28 +9,36 @@
 //Broker MQTT Libraries
 #include <WiFi.h>
 #include <PubSubClient.h>
-
+//Can Library
+#include "esp32_can.h"
 
 #include <TFT_eSPI.h> // Hardware-specific library
 #include <SPI.h>
+
+
 TFT_eSPI tft = TFT_eSPI();       // Invoke custom library
 #define TFT_GREY 0x5AEB
+//variável necessária paraos mostradores
+int old_value[6] = { -1, -1, -1, -1, -1, -1};
 
 
 
 
 #define mainDELAY_LOOP_COUNT    400000 //( 0xffffff )
 
-#define mainSENDER_1    1
-#define mainSENDER_2    2
-#define mainSENDER_3    3
+
+extern QueueHandle_t callbackQueue;
+
+
 
 
 static void vTFTPresentation( void *pvParameters );
 static void vTFTDisplayValues( void *pvParameters );
+static void CANRx( void *pvParameters );
 
-QueueHandle_t xQueue;
+QueueHandle_t xQueuexData;
 SemaphoreHandle_t xMutex;
+SemaphoreHandle_t xCountingSemaphore;
 TaskHandle_t xTFTPresentationHandle;
 
 typedef struct
@@ -38,31 +46,22 @@ typedef struct
   float ucValue1;
   float ucValue2;
   float ucValue3;
-  float ucSource;
+  char ucSource;
 } xData;
 
-/*
-static const xData xStructsToSend[ 3 ] =
-{
-  { 100, 0, 0, mainSENDER_1 },
-  { 200, 0, 0, mainSENDER_2 },
-  { 203, 0, 0, mainSENDER_3 }
-};
-*/
 
 /* Definições do LED */
 #define PIN_LED     25
 /* Defines do MQTT */
-#define TOPICO_SUBSCRIBE_LED         "topico_liga_desliga_led"
-#define TOPICO_PUBLISH_TEMPERATURA   "topico_sensor_temperatura"
-#define TOPICO_PUBLISH_DISTANCIA     "topico_sensor_distancia"
-#define TOPICO_PUBLISH_UMIDADE       "topico_sensor_umidade"
+#define TOPIC_LED    "topic_on_off_led"
+#define TOPIC_TEMP   "topic_temp"
+#define TOPIC_LUM    "topic_lum"
+#define TOPIC_ACCELL "topic_accell"
+#define TOPIC_HUM    "topic_hum"
 
 #define ID_MQTT  "43a21d06b4a0454c903ddeeb425e814f"
-
 const char* SSID = "MEO-351390"; // SSID / nome da rede WI-FI que deseja se conectar
 const char* PASSWORD = "df82e87bf3"; // Senha da rede WI-FI que deseja se conectar
-
 const char* BROKER_MQTT = "broker.hivemq.com"; //URL do broker MQTT que se deseja utilizar
 int BROKER_PORT = 1883; // Porta do Broker MQTT
 
@@ -70,9 +69,7 @@ int BROKER_PORT = 1883; // Porta do Broker MQTT
 WiFiClient espClient; // Cria o objeto espClient
 PubSubClient MQTT(espClient); // Instancia o Cliente MQTT passando o objeto espClient
 
-/* Prototypes */
-//float faz_leitura_temperatura(void);
-//float faz_leitura_umidade(void);
+//PROTOTIPES
 void initWiFi(void);
 void initMQTT(void);
 void mqtt_callback(char* topic, byte* payload, unsigned int length);
@@ -117,6 +114,8 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length)
        char c = (char)payload[i];
        msg += c;
     }
+
+    //a MESNSAGEM DEVE SER COLOCADA NUMA QUEUE, E A TAREFA CANTX DEVE SER DESBLOQUEADA
     Serial.print("Chegou a seguinte string via MQTT: ");
     Serial.println(msg);
 
@@ -148,7 +147,7 @@ void reconnectMQTT(void)
         if (MQTT.connect(ID_MQTT))
         {
             Serial.println("Conectado com sucesso ao broker MQTT!");
-            MQTT.subscribe(TOPICO_SUBSCRIBE_LED);
+            MQTT.subscribe(TOPIC_LED);
         }
         else
         {
@@ -197,6 +196,10 @@ void reconnectWiFi(void)
     Serial.println(WiFi.localIP());
 }
 
+/*
+ *
+ *
+ */
 void plotLinear(char *label, int x, int y)
 {
   int w = 36;
@@ -217,12 +220,106 @@ void plotLinear(char *label, int x, int y)
   tft.drawCentreString("---", x + w / 2, y + 155 - 18, 2);
 }
 
+void plotPointer(int i, int sValue)
+{
+  int dy = 187;
+  byte pw = 16;
 
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+
+  // Move the 6 pointers one pixel towards new value
+  //for (int i = 0; i < 6; i++){
+    char buf[8]; dtostrf(sValue, 4, 0, buf);
+    tft.drawRightString(buf, i * 40 + 36 - 5, 187 - 27 + 155 - 18, 2);
+
+    //poderá ser preciso
+    int dx = 3 + 40 * i;
+    //nunca teremos valores negativos
+    //if (value[i] < 0) value[i] = 0; // Limit value to emulate needle end stops
+    //if (value[i] > 100) value[i] = 100;
+
+    while (!(sValue == old_value[i])) {
+      dy = 187 + 100 - old_value[i];
+      if (old_value[i] > sValue)
+      {
+        tft.drawLine(dx, dy - 5, dx + pw, dy, TFT_WHITE);
+        old_value[i]--;
+        //old_value[i]=value[i];
+        tft.drawLine(dx, dy + 6, dx + pw, dy + 1, TFT_RED);
+      }
+      else
+      {
+        tft.drawLine(dx, dy + 5, dx + pw, dy, TFT_WHITE);
+        old_value[i]++;
+        //old_value[i]=value[i];
+        tft.drawLine(dx, dy - 6, dx + pw, dy - 1, TFT_RED);
+      }
+    }
+ // }
+ // }
+}
+
+
+void printFrame(CAN_FRAME *message)
+{
+  Serial.print(message->id, HEX);
+  if (message->extended) Serial.print(" X ");
+  else Serial.print(" S ");
+  Serial.print(message->length, DEC);
+  Serial.print(" ");
+  for (int i = 0; i < message->length; i++) {
+    Serial.print(message->data.byte[i], HEX);
+    Serial.print(" ");
+  }
+  Serial.println();
+}
+
+void gotHundred(CAN_FRAME *frame)
+{
+
+//	static portBASE_TYPE xHigherPriorityTaskWoken;
+//	  xHigherPriorityTaskWoken = pdFALSE;
+  Serial.print("gotHundred ");
+ // xSemaphoreGiveFromISR( xCountingSemaphore, (BaseType_t*)&xHigherPriorityTaskWoken );
+ // printFrame(frame);
+}
+
+
+
+/*
+ *
+ *
+ */
 void setup( void )
 {
-	//Inicialização da porta série(debug
+
+  //Inicialização da porta série(debug
   Serial.begin(115200);
   while(!Serial);
+
+  xQueuexData = xQueueCreate( 10, sizeof( xData ) );
+  xMutex = xSemaphoreCreateMutex();
+  xCountingSemaphore = xSemaphoreCreateCounting( 10, 0 );
+
+  //Inicialização do barramento CAN
+  Serial.println("Initializing CAN");
+  pinMode(GPIO_NUM_16, OUTPUT);
+  digitalWrite(GPIO_NUM_16, LOW); //enable CAN transceiver
+  // void ESP32CAN::setCANPins(gpio_num_t rxPin, gpio_num_t txPin)
+  CAN0.setCANPins(GPIO_NUM_4, GPIO_NUM_5);
+  //CAN0.begin(500000);
+  CAN0.init(500000);
+  Serial.println("RECEIVER Ready ...!");
+
+
+  //CAN0.watchFor(0x00, 0x0A); //setup a special filter
+  CAN0.watchFor(); //then let everything else through anyway
+  CAN0.setCallback(0, gotHundred); //callback on that first special filter
+  //CAN0.attachCANInterrupt(0, gotHundred);
+
+
+
+
   Serial.print( "Vamos ver se começa aqui\n" );
   //Inicia o display TFT
   tft.init();
@@ -234,19 +331,20 @@ void setup( void )
   /* Inicializa a conexao ao broker MQTT */
   initMQTT();
 
-  xQueue = xQueueCreate( 5, sizeof( xData ) );
-  xMutex = xSemaphoreCreateMutex();
-  if ( xQueue != NULL )
-  {
-	  if( xMutex != NULL ){
-		  Serial.print( "Success\n" );
-	      xTaskCreatePinnedToCore( vTFTPresentation, "vTFTPresentation", 1024, NULL, 2, &xTFTPresentationHandle, 1);
 
+
+  if ( xQueuexData != NULL ){
+	  if( xMutex != NULL ){
+		  if(xCountingSemaphore != NULL){
+			  Serial.print( "Success\n" );
+			  xTaskCreatePinnedToCore( vTFTPresentation, "vTFTPresentation", 1024, NULL, 2, &xTFTPresentationHandle, 1);
+		  }else{
+			  Serial.print( "The counting semaphore could not be created\r\n" );
+		  }
 	  }else{
 		  Serial.print( "The mutex not be created.\r\n" );
 	  }
-  }
-  else
+  }else
   {
 	  Serial.print( "The queue not be created.\r\n" );
   }
@@ -258,7 +356,10 @@ void loop()
 }
 
 
-
+/*Esta função é a primeira a correr neste nó e faz a apresentação
+ * do grupo, espera 10 segundos, de seguida cria as restantes tarefas
+ * e apaga-se a si mesma.
+ */
 static void vTFTPresentation( void *pvParameters )
 {
   portBASE_TYPE xStatus;
@@ -273,16 +374,48 @@ static void vTFTPresentation( void *pvParameters )
 	  tft.drawString("David Drumond", 15, 175, 4);
 	  tft.drawString("Edgar Paulo", 15, 200, 4);
 
-	  delay(10000);
+	  delay(500);
 	  //Limpa o ecrã
 	  tft.fillScreen(TFT_BLACK);
 
 	  Serial.print("\n********************************************************\n" );
 	  Serial.print("\nvTFTPresentation is running and about to delete itself\r\n" );
 	  //Create other tasks here
-      xTaskCreatePinnedToCore( vTFTDisplayValues, "vTFTDisplayValues", 1024, NULL, 1, NULL, 1);
+      xTaskCreatePinnedToCore( vTFTDisplayValues, "vTFTDisplayValues", 8196, NULL, 1, NULL, 0);
+      xTaskCreatePinnedToCore( CANRx, "CANRx", 4098, NULL, 1, NULL, 1);
 	  vTaskDelete(xTFTPresentationHandle);
 
+}
+
+static void CANRx( void *pvParameters )
+{
+  xData xSenderStructure;
+  CAN_FRAME msg;
+  //CAN_frame_t rxFrame;
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+
+  for ( ;; )
+  {
+
+	  //Nesta fase já recebe os dados filtrados
+      if(xQueueReceive(callbackQueue, &msg, portMAX_DELAY)==pdTRUE)
+      {
+      	Serial.println("task_LowLevelRX Drumond");
+      	printFrame(&msg);
+
+      	xSenderStructure.ucSource=msg.id;
+      	xSenderStructure.ucValue1 = msg.data.uint8[0];
+      	xSenderStructure.ucValue2 = msg.data.uint8[1];
+      	xSenderStructure.ucValue3 = msg.data.uint8[2];
+
+      	xQueueSend(xQueuexData, &xSenderStructure, 0 );
+
+      }
+  }
 }
 
 
@@ -292,9 +425,10 @@ static void vTFTDisplayValues( void *pvParameters )
   xData xSenderStructure;
   portBASE_TYPE xStatus;
   const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
-  float humidity =0.0;
-  float temp= 0.0;
-  float ctemp = 0.0;
+  char accell[10];
+  char lum[5];
+  char hum[5];
+  char temp[5];
   uint8_t dataT[2] = {0};
   uint8_t dataH[2] = {0};
   TickType_t xLastWakeTime;
@@ -313,6 +447,45 @@ static void vTFTDisplayValues( void *pvParameters )
   for ( ;; )
   {
 
+
+      if(xQueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE)
+      {
+    	  VerificaConexoesWiFIEMQTT();
+    	  Serial.print("QueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE\n" );
+    	  switch(xSenderStructure.ucSource) {
+    	    case 1:
+
+    	    	Serial.print("\nValor 1 publicado no topico\n" );
+    	    	plotPointer(3, int(xSenderStructure.ucValue1));
+    	    	plotPointer(4, int(xSenderStructure.ucValue2));
+    	    	plotPointer(5, int(xSenderStructure.ucValue3));
+    	    	sprintf(accell, "(%d, %d, %d)", int(xSenderStructure.ucValue1), int(xSenderStructure.ucValue2), int(xSenderStructure.ucValue3) );
+    	    	MQTT.publish(TOPIC_ACCELL, accell );
+    	      break;
+    	    case 2:
+    	    	Serial.print("\nValor 2 publicado no topico\n" );
+    	    	plotPointer(0, int(xSenderStructure.ucValue1));
+    	    	sprintf(temp, "%d", int(xSenderStructure.ucValue1));
+    	    	MQTT.publish(TOPIC_TEMP, temp );
+
+    	      break;
+    	    case 3:
+    	    	Serial.print("\nValor 3 publicado no topico\n" );
+    	    	plotPointer(1, int(xSenderStructure.ucValue1));
+    	    	sprintf(hum, "%d", int(xSenderStructure.ucValue1));
+				MQTT.publish(TOPIC_HUM, hum );
+    	      break;
+    	    case 4:
+    	    	Serial.print("\nValor 4 publicado no topico\n" );
+    	    	plotPointer(2, int(xSenderStructure.ucValue1));
+    	    	sprintf(lum, "%d", int(xSenderStructure.ucValue1));
+    	    	MQTT.publish(TOPIC_LUM, lum );
+    	      break;
+    	    default:
+    	      // code block
+    	    	Serial.print("\nDefault\n" );
+    	  }
+      }
 
 
 

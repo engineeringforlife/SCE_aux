@@ -134,6 +134,18 @@ sloeber.ino.cpp.o: ..\sloeber.ino.cpp \
  D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32/esp32-hal.h \
  d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\freertos\freertos\queue.h \
  D:\SCE\Sloeber\arduinoPlugin\libraries\rhio-LIS2HH12\0.1.2\src/rhio-LIS2HH12.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can_builtin.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h \
+ d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\driver\driver\adc.h \
+ d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\soc\soc\adc_channel.h \
+ d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\esp_adc_cal\esp_adc_cal.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can_builtin_lowlevel.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/can_config.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/mcp2517fd.h \
+ D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/mcp2517fd_defines.h \
+ D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\libraries\SPI\src/SPI.h \
+ D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32/esp32-hal-spi.h \
  ..\Projecto_SCE.ino
 
 D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32/Arduino.h:
@@ -405,5 +417,29 @@ D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32/esp
 d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\freertos\freertos\queue.h:
 
 D:\SCE\Sloeber\arduinoPlugin\libraries\rhio-LIS2HH12\0.1.2\src/rhio-LIS2HH12.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can_builtin.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h:
+
+d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\driver\driver\adc.h:
+
+d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\soc\soc\adc_channel.h:
+
+d:\sce\sloeber\arduinoplugin\packages\esp32\hardware\esp32\1.0.4\tools\sdk\include\esp_adc_cal\esp_adc_cal.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can_builtin_lowlevel.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/can_config.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/mcp2517fd.h:
+
+D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/mcp2517fd_defines.h:
+
+D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\libraries\SPI\src/SPI.h:
+
+D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32/esp32-hal-spi.h:
 
 ..\Projecto_SCE.ino:

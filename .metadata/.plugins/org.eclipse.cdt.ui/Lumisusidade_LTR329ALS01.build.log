@@ -1,4 +1,4 @@
-17:55:42 **** Incremental Build of configuration Release for project Lumisusidade_LTR329ALS01 ****
+15:19:56 **** Incremental Build of configuration Release for project Lumisusidade_LTR329ALS01 ****
 "D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
 'Do all objcopy commands'
 "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/gen_esp32part.exe" -q "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/partitions/default.csv" "D:\SCE\workspace_sloeber\Lumisusidade_LTR329ALS01\Release/Lumisusidade_LTR329ALS01.partitions.bin"
@@ -86,5 +86,5 @@ Total                                                        4356186
 'Finished building target: Lumisusidade_LTR329ALS01'
 ' '
 
-17:55:43 Build Finished. 0 errors, 0 warnings. (took 1s.53ms)
+15:19:57 Build Finished. 0 errors, 0 warnings. (took 1s.71ms)
 

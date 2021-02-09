@@ -28,6 +28,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/can_common-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/esp32_can-master}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.cpp.sketch.input.356434492" name="CPP source files" superClass="io.sloeber.compiler.cpp.sketch.input"/>
 							</tool>
@@ -42,6 +44,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/can_common-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/esp32_can-master}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.c.sketch.input.736516039" name="C Source Files" superClass="io.sloeber.compiler.c.sketch.input"/>
 							</tool>
@@ -56,6 +60,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/SPIFFS/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/PubSubClient/src}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/WiFi/src}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/can_common-master}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/Projecto2/libraries/esp32_can-master}&quot;"/>
 								</option>
 								<inputType id="io.sloeber.compiler.S.sketch.input.1961175102" name="Assembly source files" superClass="io.sloeber.compiler.S.sketch.input"/>
 							</tool>

@@ -37,6 +37,7 @@ SUBDIRS := \
 . \
 core\core \
 core\core\libb64 \
+libraries\FreeRTOS\src \
 libraries\SPI\src \
 libraries\can_common-master \
 libraries\esp32_can-master \

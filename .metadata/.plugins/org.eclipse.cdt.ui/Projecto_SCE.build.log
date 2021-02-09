@@ -1,5 +1,42 @@
-18:14:11 **** Incremental Build of configuration Release for project Projecto_SCE ****
+00:44:16 **** Incremental Build of configuration Release for project Projecto_SCE ****
 "D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
+'Building file: ..\sloeber.ino.cpp'
+'Starting C++ compile'
+"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\tools\xtensa-esp32-elf-gcc\1.22.0-80-g6c4433a-5.2.0/bin/xtensa-esp32-elf-g++" -DESP_PLATFORM "-DMBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"" -DHAVE_CONFIG_H -DGCC_NOT_5_2_0=0 -DWITH_POSIX "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/config" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/app_trace" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/app_update" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/asio" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bootloader_support" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/bt" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/coap" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/console" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/driver" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp-tls" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp32" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_adc_cal" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_event" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_http_client" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_http_server" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_https_ota" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp_ringbuf" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/ethernet" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/expat" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/fatfs" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/freemodbus" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/freertos" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/heap" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/idf_test" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/jsmn" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/json" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/libsodium" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/log" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/lwip" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/mbedtls" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/mdns" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/micro-ecc" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/mqtt" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/newlib" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/nghttp" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/nvs_flash" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/openssl" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/protobuf-c" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/protocomm" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/pthread" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/sdmmc" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/smartconfig_ack" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/soc" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/spi_flash" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/spiffs" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/tcp_transport" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/tcpip_adapter" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/ulp" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/vfs" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/wear_levelling" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/wifi_provisioning" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/wpa_supplicant" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/xtensa-debug-module" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp-face" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp32-camera" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/esp-face" "-ID:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/include/fb_gfx" -std=gnu++11 -Os -g3 -Wpointer-arith -fexceptions -fstack-protector -ffunction-sections -fdata-sections -fstrict-volatile-bitfields -mlongcalls -nostdlib -Wall -Werror=all -Wextra -Wno-error=maybe-uninitialized -Wno-error=unused-function -Wno-error=unused-but-set-variable -Wno-error=unused-variable -Wno-error=deprecated-declarations -Wno-unused-parameter -Wno-unused-but-set-parameter -Wno-missing-field-initializers -Wno-sign-compare -fno-rtti -MMD -c -DF_CPU=240000000L -DARDUINO=10812 -DARDUINO_ESP32_DEV -DARDUINO_ARCH_ESP32 "-DARDUINO_BOARD=\"ESP32_DEV\"" -DARDUINO_VARIANT="esp32"  -DESP32 -DCORE_DEBUG_LEVEL=5    -I"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\cores\esp32" -I"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\variants\esp32" -I"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\libraries\Wire\src" -I"D:\SCE\Sloeber\arduinoPlugin\libraries\rhio-LIS2HH12\0.1.2\src" -I"D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src" -I"D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src" -I"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\hardware\esp32\1.0.4\libraries\SPI\src" -MMD -MP -MF"sloeber.ino.cpp.d" -MT"sloeber.ino.cpp.o" -D__IN_ECLIPSE__=1 -x c++ "..\sloeber.ino.cpp"   -o "sloeber.ino.cpp.o"
+In file included from D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can_builtin.h:35:0,
+                 from D:\SCE\Sloeber\arduinoPlugin\libraries\esp32_can-master\src/esp32_can.h:1,
+                 from ..\sloeber.ino.cpp:16:
+D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h:93:42: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+         const bool operator[]( int pos ) const
+                                          ^
+D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h:120:42: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
+         const bool operator[]( int pos ) const
+                                          ^
+In file included from ..\sloeber.ino.cpp:28:0:
+..\Projecto_SCE.ino: In function 'void vSenderSI7006_HUM(void*)':
+..\Projecto_SCE.ino:113:9: warning: unused variable 'temp' [-Wunused-variable]
+   float temp= 0.0;
+         ^
+..\Projecto_SCE.ino:114:9: warning: unused variable 'ctemp' [-Wunused-variable]
+   float ctemp = 0.0;
+         ^
+..\Projecto_SCE.ino:115:11: warning: unused variable 'dataT' [-Wunused-variable]
+   uint8_t dataT[2] = {0};
+           ^
+..\Projecto_SCE.ino: In function 'void vSenderSI7006_TEMP(void*)':
+..\Projecto_SCE.ino:173:9: warning: unused variable 'humidity' [-Wunused-variable]
+   float humidity =0.0;
+         ^
+..\Projecto_SCE.ino: At global scope:
+..\Projecto_SCE.ino:320:13: warning: 'void vReceiverTask(void*)' defined but not used [-Wunused-function]
+ static void vReceiverTask( void *pvParameters )
+             ^
+'Finished building: ..\sloeber.ino.cpp'
+' '
+'Starting combiner'
+"D:\SCE\Sloeber\arduinoPlugin\packages\esp32\tools\xtensa-esp32-elf-gcc\1.22.0-80-g6c4433a-5.2.0/bin/xtensa-esp32-elf-gcc" -nostdlib "-LD:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/lib" "-LD:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/sdk/ld" -T esp32_out.ld -T esp32.common.ld -T esp32.rom.ld -T esp32.peripherals.ld -T esp32.rom.libgcc.ld -T esp32.rom.spiram_incompatible_fns.ld -u ld_include_panic_highint_hdl -u call_user_start_cpu0 -Wl,--gc-sections -Wl,-static -Wl,--undefined=uxTopUsedPriority  -u __cxa_guard_dummy -u __cxx_fatal_exception  -Wl,--start-group    .\sloeber.ino.cpp.o  .\libraries\rhio-LIS2HH12\src\rhio-LIS2HH12.cpp.o  .\libraries\esp32_can-master\esp32_can.cpp.o .\libraries\esp32_can-master\esp32_can_builtin.cpp.o .\libraries\esp32_can-master\esp32_can_builtin_lowlevel.cpp.o .\libraries\esp32_can-master\mcp2515.cpp.o .\libraries\esp32_can-master\mcp2517fd.cpp.o  .\libraries\can_common-master\can_common.cpp.o  .\libraries\Wire\src\Wire.cpp.o  .\libraries\SPI\src\SPI.cpp.o    D:\SCE\workspace_sloeber\Projecto_SCE\Release/arduino.ar  -lgcc -lesp32 -lphy -lesp_http_client -lmbedtls -lrtc -lesp_http_server -lbtdm_app -lspiffs -lbootloader_support -lmdns -lnvs_flash -lfatfs -lpp -lnet80211 -ljsmn -lface_detection -llibsodium -lvfs -ldl_lib -llog -lfreertos -lcxx -lsmartconfig_ack -lxtensa-debug-module -lheap -ltcpip_adapter -lmqtt -lulp -lfd -lfb_gfx -lnghttp -lprotocomm -lsmartconfig -lm -lethernet -limage_util -lc_nano -lsoc -ltcp_transport -lc -lmicro-ecc -lface_recognition -ljson -lwpa_supplicant -lmesh -lesp_https_ota -lwpa2 -lexpat -llwip -lwear_levelling -lapp_update -ldriver -lbt -lespnow -lcoap -lasio -lnewlib -lconsole -lapp_trace -lesp32-camera -lhal -lprotobuf-c -lsdmmc -lcore -lpthread -lcoexist -lfreemodbus -lspi_flash -lesp-tls -lwpa -lwifi_provisioning -lwps -lesp_adc_cal -lesp_event -lopenssl -lesp_ringbuf -lfr  -lstdc++ -Wl,--end-group -Wl,-EL -o "D:\SCE\workspace_sloeber\Projecto_SCE\Release/Projecto_SCE.elf"
+'Finished building: Projecto_SCE.elf'
+' '
 'Do all objcopy commands'
 "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/gen_esp32part.exe" -q "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/partitions/default.csv" "D:\SCE\workspace_sloeber\Projecto_SCE\Release/Projecto_SCE.partitions.bin"
 "D:\SCE\Sloeber\arduinoPlugin\packages\esp32\tools\esptool_py\2.6.1/esptool.exe" --chip esp32 elf2image --flash_mode "dio" --flash_freq "80m" --flash_size "4MB" -o "D:\SCE\workspace_sloeber\Projecto_SCE\Release/Projecto_SCE.bin" "D:\SCE\workspace_sloeber\Projecto_SCE\Release/Projecto_SCE.elf"
@@ -17,24 +54,28 @@ section                                                         size         add
 .rtc_noinit                                                        0   1342177792
 .rtc.force_slow                                                    0   1342177792
 .iram0.vectors                                                  1024   1074266112
-.iram0.text                                                    59788   1074267136
-.dram0.data                                                     9636   1073470304
-.noinit                                                            0   1073479940
-.dram0.bss                                                      6584   1073479944
-.flash.rodata                                                  51452   1061158944
-.flash.text                                                   111461   1074593816
-.debug_frame                                                   83392            0
-.debug_info                                                  1492708            0
-.debug_abbrev                                                 185481            0
-.debug_loc                                                    525554            0
-.debug_aranges                                                 32584            0
-.debug_ranges                                                  35304            0
-.debug_macro                                                  172741            0
-.debug_line                                                   738142            0
-.debug_str                                                    925517            0
+.iram0.text                                                    60492   1074267136
+.dram0.data                                                     9716   1073470304
+.noinit                                                            0   1073480020
+.dram0.bss                                                      7768   1073480024
+.flash.rodata                                                  61544   1061158944
+.flash.text                                                   125585   1074593816
+.debug_frame                                                   90136            0
+.debug_info                                                  1667165            0
+.debug_abbrev                                                 203446            0
+.debug_loc                                                    545879            0
+.debug_aranges                                                 35056            0
+.debug_ranges                                                  37856            0
+.debug_macro                                                  200949            0
+.debug_line                                                   803504            0
+.debug_str                                                    981304            0
 .comment                                                         419            0
 .xtensa.info                                                      56            0
 .xt.prop._ZN7TwoWire5writeEi                                      36            0
+.xt.prop._ZTV8ESP32CAN                                            12            0
+.xt.prop._ZN14HardwareSerial5writeEi                              36            0
+.xt.prop._ZTV9MCP2517FD                                           12            0
+.xt.prop._ZTV10CAN_COMMON                                         12            0
 .xt.prop._ZN6Stream9readBytesEPhj                                 36            0
 .xt.prop._ZTV7TwoWire                                             12            0
 .xt.lit._ZN14HardwareSerialD5Ev                                    0            0
@@ -80,11 +121,11 @@ section                                                         size         add
 .xt.prop._ZTVN9__gnu_cxx26__concurrence_unlock_errorE             12            0
 .xt.prop._ZTVSt9bad_alloc                                         12            0
 .xt.prop._ZTVN10__cxxabiv120__si_class_type_infoE                 12            0
-Total                                                        4432943
+Total                                                        4833071
 
 
 'Finished building target: Projecto_SCE'
 ' '
 
-18:14:12 Build Finished. 0 errors, 0 warnings. (took 1s.20ms)
+00:44:24 Build Finished. 0 errors, 7 warnings. (took 7s.420ms)
 

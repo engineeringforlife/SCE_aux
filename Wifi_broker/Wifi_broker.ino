@@ -18,7 +18,7 @@
 #define TOPICO_SUBSCRIBE_LED         "topico_liga_desliga_led"
 #define TOPICO_PUBLISH_TEMPERATURA   "topico_sensor_temperatura"
 #define TOPICO_PUBLISH_DISTANCIA     "topico_sensor_distancia"
-#define TOPICO_PUBLISH_UMIDADE       "topico_sensor_umidade"
+#define TOPICO_PUBLISH_LUM       "topic_lum"
 
 #define ID_MQTT  "43a21d06b4a0454c903ddeeb425e814f"
 
@@ -186,22 +186,21 @@ void setup()
 void loop()
 {
     char temperatura_str[10] = {0};
-    char umidade_str[10]     = {0};
+    char tempo[10]     = {0};
 
     /* garante funcionamento das conexões WiFi e ao broker MQTT */
     VerificaConexoesWiFIEMQTT();
 
     /* Compoe as strings a serem enviadas pro dashboard (campos texto) */
    // sprintf(temperatura_str,"%.2fC", 5);
-  //  sprintf(umidade_str,"%.2f", 6);
-
+       sprintf(tempo,"%i", (int)millis());
     /*  Envia as strings ao dashboard MQTT */
-    MQTT.publish(TOPICO_PUBLISH_TEMPERATURA, "50");
-    MQTT.publish(TOPICO_PUBLISH_UMIDADE, umidade_str);
+    MQTT.publish("topic_lum", tempo);
+    //MQTT.publish(TOPICO_PUBLISH_UMIDADE, umidade_str);
 
     /* keep-alive da comunicação com broker MQTT */
-    MQTT.loop();
+    //MQTT.loop();
 
     /* Refaz o ciclo após 2 segundos */
-    delay(2000);
+    delay(50);
 }

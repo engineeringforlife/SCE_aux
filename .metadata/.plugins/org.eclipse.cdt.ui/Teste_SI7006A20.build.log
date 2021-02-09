@@ -1,4 +1,4 @@
-17:37:08 **** Incremental Build of configuration Release for project Teste_SI7006A20 ****
+15:20:16 **** Incremental Build of configuration Release for project Teste_SI7006A20 ****
 "D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
 'Do all objcopy commands'
 "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/gen_esp32part.exe" -q "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/partitions/default.csv" "D:\SCE\workspace_sloeber\Teste_SI7006A20\Release/Teste_SI7006A20.partitions.bin"
@@ -85,5 +85,5 @@ Total                                                        4356786
 'Finished building target: Teste_SI7006A20'
 ' '
 
-17:37:09 Build Finished. 0 errors, 0 warnings. (took 1s.99ms)
+15:20:17 Build Finished. 0 errors, 0 warnings. (took 1s.120ms)
 

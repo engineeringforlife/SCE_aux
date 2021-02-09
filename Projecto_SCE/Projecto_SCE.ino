@@ -6,7 +6,8 @@
 #include "nvs_flash.h"
 #include <Wire.h>
 #include <rhio-LIS2HH12.h>
-
+#include <esp32_can.h>
+#include <SPI.h>
 
 #define mainDELAY_LOOP_COUNT    400000 //( 0xffffff )
 
@@ -22,16 +23,12 @@ char tempComand = 0xF3;
 char humComand = 0xF5;
 
 
-
-
-
 static void vSenderSI7006_HUM( void *pvParameters );
 static void vSenderSI7006_TEMP( void *pvParameters );
 static void vSenderLTR329ALS01( void *pvParameters );
 static void vSenderLIS2HH12( void *pvParameters );
-//static void vSenderTask( void *pvParameters );
 static void vReceiverTask( void *pvParameters );
-static void vReceiverTask( void *pvParameters );
+static void vCanTx( void *pvParameters );
 
 /*-----------------------------------------------------------*/
 
@@ -41,16 +38,8 @@ typedef struct
   float ucValue1;
   float ucValue2;
   float ucValue3;
-  float ucSource;
+  int ucSource;
 } xData;
-
-
-static const xData xStructsToSend[ 3 ] =
-{
-  { 100, 0, 0, mainSENDER_1 }, /* Used by Sender1. */
-  { 200, 0, 0, mainSENDER_2 },  /* Used by Sender2. */
-  { 203, 0, 0, mainSENDER_3 }
-};
 
 LIS2HH12 lis = LIS2HH12();
 
@@ -61,21 +50,25 @@ SemaphoreHandle_t xMutex;	//=0?
 
 
 
-
 void setup( void )
 {
   Serial.begin(115200);
   while(!Serial);
 
+  Serial.println("Initializing CAN");
+  pinMode(GPIO_NUM_16, OUTPUT);
+  digitalWrite(GPIO_NUM_16, LOW); //enable CAN transceiver
+  CAN0.setCANPins(GPIO_NUM_4, GPIO_NUM_5);
+  CAN0.begin(500000);
 
-
-  Wire.begin();
+  Serial.println("SENDER Ready ...!");
 
   Wire.begin();
   Wire.beginTransmission(AddrSI7006);
   Wire.endTransmission();
   delay(300);
 
+  //Wire.begin();
   Wire.beginTransmission(AddrLTR329AL);
   Wire.write(0x80); //control register
   Wire.write(0x01); //gain=1, active mode
@@ -84,76 +77,31 @@ void setup( void )
 
   lis.begin();
   lis.setBasicConfig();
-
-
   xQueue = xQueueCreate( 5, sizeof( xData ) );
-
   xMutex = xSemaphoreCreateMutex();
-
   if ( xQueue != NULL )
   {
 	  if( xMutex != NULL ){
-
-	  //  xTaskCreatePinnedToCore( vSenderTask, "Sender1", 1024, ( void * ) & ( xStructsToSend[ 0 ] ),2, NULL, 1);
-	  //  xTaskCreatePinnedToCore( vSenderTask, "Sender2",   1024, ( void * ) & ( xStructsToSend[ 1 ] ), 2, NULL, 1);
-	  //  xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "Sender3", 1024, NULL , 3, NULL, 1);
-	      xTaskCreatePinnedToCore( vSenderSI7006_HUM, "Sender4", 1024, NULL, 2, NULL, 1);
-	      xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "Sender5", 1024, NULL, 2, NULL, 1);
-	      xTaskCreatePinnedToCore( vSenderLTR329ALS01, "Sender6", 2048, NULL, 2, NULL, 1);
+	      xTaskCreatePinnedToCore( vSenderSI7006_HUM, "vSenderSI7006_HUM", 2048, NULL, 2, NULL, 1);
+	      xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "vSenderSI7006_TEMP", 2048, NULL, 2, NULL, 1);
+	      xTaskCreatePinnedToCore( vSenderLTR329ALS01, "vSenderLTR329ALS01", 2048, NULL, 2, NULL, 1);
 	      xTaskCreatePinnedToCore( vSenderLIS2HH12, "vSenderLIS2HH12", 2048, NULL, 2, NULL, 1);
-
-
-
-
-	   xTaskCreatePinnedToCore( vReceiverTask, "Receiver", 1024, NULL, 1, NULL, 1);
-
-
-	   // vTaskStartScheduler();
+	    //  xTaskCreatePinnedToCore( vReceiverTask, "vReceiverTask", 1024, NULL, 1, NULL, 1);
+	      xTaskCreatePinnedToCore( vCanTx, "vCanTx", 1024, NULL, 1, NULL, 0);	//core 0 e 1???
 	  }else{
 		  Serial.print( "The mutex not be created.\r\n" );
 	  }
   }
   else
   {
-
 	  Serial.print( "The queue not be created.\r\n" );
   }
-
-
-    //for( ;; );
-    //return 0;
 }
 
 void loop()
 {
   vTaskDelete( NULL );
 }
-
-
-/*-----------------------------------------------------------*/
-/*
-static void vSenderTask( void *pvParameters )
-{
-  portBASE_TYPE xStatus;
-  const TickType_t xTicksToWait = 500 / portTICK_PERIOD_MS;
-
-
-  for ( ;; )
-  {
-
-    xStatus = xQueueSendToBack( xQueue, pvParameters, xTicksToWait );
-
-    if ( xStatus != pdPASS )
-    {
-
-      Serial.print( "EX11: Could not send to the queue.\r\n" );
-    }
-
-
-    taskYIELD();
-  }
-}
-*/
 
 
 static void vSenderSI7006_HUM( void *pvParameters )
@@ -174,7 +122,7 @@ static void vSenderSI7006_HUM( void *pvParameters )
   for ( ;; )
   {
 
-	  if( xSemaphoreTake( xMutex, ( 50/portTICK_PERIOD_MS ))){
+	  if( xSemaphoreTake( xMutex, portMAX_DELAY)){
 		  Serial.print( "vSenderSI7006_HUM got access.\r\n" );
 		    // Start I2C transmission
 		    Wire.beginTransmission(AddrSI7006);
@@ -198,9 +146,9 @@ static void vSenderSI7006_HUM( void *pvParameters )
 		    humidity  = ((dataH[0] * 256.0) + dataH[1]);
 		    humidity = ((125 * humidity) / 65536.0) - 6;
 
-		    xSenderStructure.ucSource = 3;
-		    xSenderStructure.ucValue1 = (float)millis();;
-
+		    xSenderStructure.ucSource = 0x03;
+		    //xSenderStructure.ucValue1 = (float)millis();
+		    xSenderStructure.ucValue1 =int(humidity);
 	    xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
 
 	    if ( xStatus != pdPASS )
@@ -232,7 +180,8 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 
   for ( ;; )
   {
-	  if( xSemaphoreTake( xMutex, ( 50/portTICK_PERIOD_MS ))){
+
+	  if( xSemaphoreTake( xMutex, portMAX_DELAY)){
 		  Serial.print( "vSenderSI7006_TEMP got access.\r\n" );
 		    // Start I2C transmission
 			Wire.beginTransmission(AddrSI7006);
@@ -257,9 +206,9 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 			// Convert the data
 			temp  = ((dataT[0] * 256.0) + dataT[1]);
 			ctemp = ((175.72 * temp) / 65536.0) - 46.85;
-		    xSenderStructure.ucSource = 4;
-		    xSenderStructure.ucValue1 = (float)millis();;
-
+		    xSenderStructure.ucSource = 0x02;
+		    //xSenderStructure.ucValue1 = (float)millis();;
+		    xSenderStructure.ucValue1 = int(ctemp);
 	    xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
 
 	    if ( xStatus != pdPASS )
@@ -269,7 +218,8 @@ static void vSenderSI7006_TEMP( void *pvParameters )
 	  }else{
 		  Serial.print( "vSenderSI7006_TEMP failed to got access.\r\n" );
 	  }
-	  vTaskDelayUntil( &xLastWakeTime, ( 1000/portTICK_PERIOD_MS ) );
+	  vTaskDelayUntil( &xLastWakeTime, ( 500/portTICK_PERIOD_MS ) );
+
   }
 }
 
@@ -285,10 +235,9 @@ static void vSenderLTR329ALS01( void *pvParameters )
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
 
-
 		  for ( ;; )
 		  {
-			  if( xSemaphoreTake( xMutex, ( 50/portTICK_PERIOD_MS ))){
+			  if( xSemaphoreTake( xMutex, portMAX_DELAY)){
 					  Serial.print( "vSenderLTR329ALS01 got access.\r\n" );
 
 					  //channel 0
@@ -312,14 +261,14 @@ static void vSenderLTR329ALS01( void *pvParameters )
 					  l = (msb<<8) | lsb;
 					  Serial.print( "ABOUT TO PINT CHANNEL OF LTR329ALS01\r\n" );
 					  Serial.println(l, DEC); //output in steps (16bit)
-					xSenderStructure.ucSource = 5;
-					xSenderStructure.ucValue1 = (float)millis();;
+					xSenderStructure.ucSource = 0x04;
+					//xSenderStructure.ucValue1 = (float)millis();
+					xSenderStructure.ucValue1 = l;
 					xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
 					if ( xStatus != pdPASS )
 					{
 					  Serial.print( "LTR329ALS01 Could not send to the queue.\r\n" );
 					}
-
 				}else{
 				  Serial.print( "vSenderLTR329ALS01 failed to got access.\r\n" );
 				}
@@ -340,12 +289,15 @@ static void vSenderLIS2HH12( void *pvParameters )
 
   for ( ;; )
   {
-	  if( xSemaphoreTake( xMutex, ( 50/portTICK_PERIOD_MS ))){
+
+
+	  if( xSemaphoreTake( xMutex, xTicksToWait)){
 		  Serial.print( "vSenderLIS2HH12 got access.\r\n" );
 		    lis.getAccel(&x, &y, &z);
 		    xSemaphoreGive(xMutex);
-		    xSenderStructure.ucSource = 6;
-		    xSenderStructure.ucValue1 = (float)millis();
+		    xSenderStructure.ucSource = 0x01;
+		   // xSenderStructure.ucValue1 = (float)millis();
+		    xSenderStructure.ucValue1 = x;
 		    xSenderStructure.ucValue2 = y;
 		    xSenderStructure.ucValue3 = z;
 	    xStatus = xQueueSendToBack( xQueue, &xSenderStructure, xTicksToWait );
@@ -385,20 +337,17 @@ static void vReceiverTask( void *pvParameters )
 
 		      if ( xReceivedStructure.ucSource == mainSENDER_1 )
 		      {
-		        //Serial.print( "EX11: From Sender 1 = ");
-		        //Serial.println(xReceivedStructure.ucValue);
+
 		      }
 		      else if(xReceivedStructure.ucSource == mainSENDER_2)
 		      {
-		        //Serial.print( "EX11: From Sender 2 = ");
-		        //Serial.println( xReceivedStructure.ucValue );
+
 		      }
 		      else if (xReceivedStructure.ucSource == 3){
 		    	  Serial.print( "****************************\n");
 		    	  Serial.print( "Value received from SI7006_HUM : ");
 				  Serial.println( xReceivedStructure.ucValue1 );
 				  Serial.print( "****************************\n");
-
 		      }else if(xReceivedStructure.ucSource == 4){
 		    	  Serial.print( "****************************\n");
 		    	  Serial.print( "Value received from SI7006_TEMP : ");
@@ -427,10 +376,47 @@ static void vReceiverTask( void *pvParameters )
 		    {
 		      Serial.print( "EX11: Could not receive from the queue.\r\n" );
 		    }
-
     vTaskDelayUntil( &xLastWakeTime, ( 500/portTICK_PERIOD_MS ) );
   }
 }
+
+
+static void vCanTx( void *pvParameters )
+{
+  xData xReceivedStructure;
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+  for ( ;; )
+  {
+	  //exemplo do exercício 16
+	    /* Wait for a message to arrive. */
+	    xQueueReceive( xQueue, &xReceivedStructure, 0 );
+	    /* There is no need to check the return value as the task will block
+	    indefinitely and only run again when a message has arrived.  When the
+	    next line is executed there will be a message to be output. */
+
+	  CAN_FRAME txFrame;
+	  txFrame.rtr = 0;
+	  txFrame.id = int(xReceivedStructure.ucSource);
+	  txFrame.extended = false;
+	  txFrame.length = 3;
+	  txFrame.data.uint8[0] = int(xReceivedStructure.ucValue1);
+	  txFrame.data.uint8[1] = int(xReceivedStructure.ucValue2);
+	  txFrame.data.uint8[2] = int(xReceivedStructure.ucValue3);
+
+
+	    Serial.println("SENT ...!");
+
+	  Serial.println(xReceivedStructure.ucSource);
+	  Serial.println(xReceivedStructure.ucValue1);
+	  CAN0.sendFrame(txFrame);
+	  vTaskDelayUntil( &xLastWakeTime, ( 100/portTICK_PERIOD_MS ) );
+
+  }
+}
+
+
 
 //------------------------------------------------------------------------------
 

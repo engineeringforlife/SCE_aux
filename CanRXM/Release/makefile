@@ -12,6 +12,7 @@ RM := -del
 -include libraries\esp32_can-master\subdir.mk
 -include libraries\can_common-master\subdir.mk
 -include libraries\SPI\src\subdir.mk
+-include libraries\FreeRTOS\src\subdir.mk
 -include core\core\libb64\subdir.mk
 -include core\core\subdir.mk
 -include objects.mk

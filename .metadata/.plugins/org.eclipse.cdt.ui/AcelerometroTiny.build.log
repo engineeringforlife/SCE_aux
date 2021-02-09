@@ -1,4 +1,4 @@
-17:25:35 **** Incremental Build of configuration Release for project AcelerometroTiny ****
+15:19:30 **** Incremental Build of configuration Release for project AcelerometroTiny ****
 "D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
 'Do all objcopy commands'
 "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/gen_esp32part.exe" -q "D:\SCE\Sloeber\/arduinoPlugin/packages/esp32/hardware/esp32/1.0.4/tools/partitions/default.csv" "D:\SCE\workspace_sloeber\AcelerometroTiny\Release/AcelerometroTiny.partitions.bin"
@@ -85,5 +85,5 @@ Total                                                        4423296
 'Finished building target: AcelerometroTiny'
 ' '
 
-17:25:36 Build Finished. 0 errors, 0 warnings. (took 1s.19ms)
+15:19:31 Build Finished. 0 errors, 0 warnings. (took 1s.138ms)
 

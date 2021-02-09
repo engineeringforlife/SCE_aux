@@ -70,16 +70,16 @@ void loop() {
     //value[0] = map(analogRead(A0), 0, 1023, 0, 100); // Test with value form Analogue 0
 
     // Create a Sine wave for testing
-    value[0] = 50 ;
+    value[0] = 80;
     value[1] = 50 ;
-    value[2] = 50 ;
-    value[3] = 50 ;
+    value[2] = 90 ;
+    value[3] = 50 + 50 * sin((d + 60) * 0.0174532925);
     value[4] = 50 ;
     value[5] = 50 ;
 
     //unsigned long t = millis();
 
-    plotPointer();
+    plotPointer(3, 50 + 50 * sin((d + 60) * 0.0174532925));
 
    // plotNeedle(value[0], 0);
 
@@ -269,6 +269,7 @@ void plotLinear(char *label, int x, int y)
 // #########################################################################
 //  Adjust 6 linear meter pointer positions
 // #########################################################################
+/*
 void plotPointer(void)
 {
   int dy = 187;
@@ -303,3 +304,44 @@ void plotPointer(void)
     }
   }
 }
+*/
+
+void plotPointer(int i, int sValue)
+{
+  int dy = 187;
+  byte pw = 16;
+
+  tft.setTextColor(TFT_GREEN, TFT_BLACK);
+
+  // Move the 6 pointers one pixel towards new value
+  //for (int i = 0; i < 6; i++){
+    char buf[8]; dtostrf(sValue, 4, 0, buf);
+    tft.drawRightString(buf, i * 40 + 36 - 5, 187 - 27 + 155 - 18, 2);
+
+    //poderá ser preciso
+    int dx = 3 + 40 * i;
+    //nunca teremos valores negativos
+    //if (value[i] < 0) value[i] = 0; // Limit value to emulate needle end stops
+    //if (value[i] > 100) value[i] = 100;
+
+    while (!(sValue == old_value[i])) {
+      dy = 187 + 100 - old_value[i];
+      if (old_value[i] > sValue)
+      {
+        tft.drawLine(dx, dy - 5, dx + pw, dy, TFT_WHITE);
+        old_value[i]--;
+        //old_value[i]=value[i];
+        tft.drawLine(dx, dy + 6, dx + pw, dy + 1, TFT_RED);
+      }
+      else
+      {
+        tft.drawLine(dx, dy + 5, dx + pw, dy, TFT_WHITE);
+        old_value[i]++;
+        //old_value[i]=value[i];
+        tft.drawLine(dx, dy - 6, dx + pw, dy - 1, TFT_RED);
+      }
+    }
+ // }
+ // }
+}
+

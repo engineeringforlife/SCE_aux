@@ -1,7 +1,7 @@
 #include "esp32_can.h"
 #include "Arduino.h"
 #include "SPI.h"
-
+int x=0;
 
 void printFrame(CAN_FRAME *message)
 {
@@ -19,8 +19,8 @@ void printFrame(CAN_FRAME *message)
 
 void gotHundred(CAN_FRAME *frame)
 {
-  Serial.print("Got special frame!  ");
-  printFrame(frame);
+  Serial.print("\nGot special frame!  ");
+  //printFrame(frame);
 }
 
 void setup() {
@@ -36,42 +36,25 @@ void setup() {
 
   Serial.println("RECEIVER Ready ...!");
 
-  CAN0.watchFor(0x100, 0xF00); //setup a special filter
+  //CAN0.watchFor(0x0A, 0x0F); //setup a special filter
   CAN0.watchFor(); //then let everything else through anyway
-  CAN0.setCallback(0, gotHundred); //callback on that first special filter
+  //CAN0.setCallback(0, gotHundred); //callback on that first special filter
+  CAN0.attachCANInterrupt(0, gotHundred);
 }
 
 void loop() {
   byte i = 0;
   CAN_FRAME message;
   if (CAN0.read(message)) {
-
-
-    // Send out a return message for each one received
-    // Simply increment message id and data bytes to show proper transmission
-    // Note: this will double the traffic on the network (provided it passes the filter above)
-    if (message.id == 0x2){
+    if (1){
     	Serial.println("id Correspondente!!!");
     	Serial.println("RECEIVED ...!");
-    	 printFrame(&message);
+    	printFrame(&message);
+    	x++;
+    	Serial.print(x);
     }
     else
     	Serial.println("id Não Correspondente!!!");
-    //message.id++;
-   // for (i = 0; i < message.length; i++) {
-     // message.data.uint8[i]++;
-   // }
-    //CAN.sendFrame(message);
   }
-  delay(500);
-  //or, just plain send traffic periodically
-  /*
-    delayMicroseconds(200);
-    message.id++;
-    message.length = 8;
-    for(i=0;i<message.length;i++) {
-     message.data.uint8[i]++;
-    }
-    CAN.sendFrame(message);
-  */
+ // delay(500);
 }

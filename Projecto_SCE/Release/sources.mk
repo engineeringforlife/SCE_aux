@@ -37,6 +37,9 @@ SUBDIRS := \
 . \
 core\core \
 core\core\libb64 \
+libraries\SPI\src \
 libraries\Wire\src \
+libraries\can_common-master \
+libraries\esp32_can-master \
 libraries\rhio-LIS2HH12\src \
 
