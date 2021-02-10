@@ -29,10 +29,22 @@ static void vSenderLTR329ALS01( void *pvParameters );
 static void vSenderLIS2HH12( void *pvParameters );
 static void vReceiverTask( void *pvParameters );
 static void vCanTx( void *pvParameters );
+static void vCanRx( void *pvParameters );
+static void vManageValues( void *pvParameters );
 
+
+/* The service routine for the interrupt.  This is the interrupt that the task
+will be synchronized with. */
+static void IRAM_ATTR vExternalInterruptHandler( void );
+
+// pin to generate interrupts
+const uint8_t interruptPin = 12;
+const uint8_t LED_BUILTIN = 2;
 /*-----------------------------------------------------------*/
 
 QueueHandle_t xQueue;
+extern QueueHandle_t callbackQueue;
+QueueHandle_t xQueuexData;
 typedef struct
 {
   float ucValue1;
@@ -48,6 +60,31 @@ reference the mutex type semaphore that is used to ensure mutual
 exclusive access to stdout. */
 SemaphoreHandle_t xMutex;	//=0?
 
+void printFrame(CAN_FRAME *message)
+{
+  Serial.print(message->id, HEX);
+  if (message->extended) Serial.print(" X ");
+  else Serial.print(" S ");
+  Serial.print(message->length, DEC);
+  Serial.print(" ");
+  for (int i = 0; i < message->length; i++) {
+    Serial.print(message->data.byte[i], HEX);
+    Serial.print(" ");
+  }
+  Serial.println();
+}
+
+void gotHundred(CAN_FRAME *frame)
+{
+
+//	static portBASE_TYPE xHigherPriorityTaskWoken;
+//	  xHigherPriorityTaskWoken = pdFALSE;
+  Serial.print("gotHundred ");
+ // xSemaphoreGiveFromISR( xCountingSemaphore, (BaseType_t*)&xHigherPriorityTaskWoken );
+ // printFrame(frame);
+}
+
+
 
 
 void setup( void )
@@ -55,13 +92,20 @@ void setup( void )
   Serial.begin(115200);
   while(!Serial);
 
+  pinMode(interruptPin, INPUT_PULLUP);
+  pinMode(15, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(interruptPin), &vExternalInterruptHandler, CHANGE);
+
   Serial.println("Initializing CAN");
   pinMode(GPIO_NUM_16, OUTPUT);
   digitalWrite(GPIO_NUM_16, LOW); //enable CAN transceiver
   CAN0.setCANPins(GPIO_NUM_4, GPIO_NUM_5);
-  CAN0.begin(500000);
+  CAN0.init(500000);
 
   Serial.println("SENDER Ready ...!");
+
+  CAN0.watchFor(); //then let everything else through anyway
+  CAN0.setCallback(0, gotHundred); //callback on that first special filter
 
   Wire.begin();
   Wire.beginTransmission(AddrSI7006);
@@ -79,6 +123,7 @@ void setup( void )
   lis.setBasicConfig();
   xQueue = xQueueCreate( 5, sizeof( xData ) );
   xMutex = xSemaphoreCreateMutex();
+  xQueuexData = xQueueCreate( 10, sizeof( xData ) );
   if ( xQueue != NULL )
   {
 	  if( xMutex != NULL ){
@@ -86,9 +131,14 @@ void setup( void )
 	      xTaskCreatePinnedToCore( vSenderSI7006_TEMP, "vSenderSI7006_TEMP", 2048, NULL, 2, NULL, 1);
 	      xTaskCreatePinnedToCore( vSenderLTR329ALS01, "vSenderLTR329ALS01", 2048, NULL, 2, NULL, 1);
 	      xTaskCreatePinnedToCore( vSenderLIS2HH12, "vSenderLIS2HH12", 2048, NULL, 2, NULL, 1);
-	    //  xTaskCreatePinnedToCore( vReceiverTask, "vReceiverTask", 1024, NULL, 1, NULL, 1);
+	      //xTaskCreatePinnedToCore( vReceiverTask, "vReceiverTask", 1024, NULL, 1, NULL, 1);
 	      xTaskCreatePinnedToCore( vCanTx, "vCanTx", 1024, NULL, 1, NULL, 0);	//core 0 e 1???
+	      xTaskCreatePinnedToCore( vCanRx, "vCanRx", 2048, NULL, 1, NULL, 0);
+	      xTaskCreatePinnedToCore( vManageValues, "vManageValues", 2048, NULL, 1, NULL, 0);
+
 	  }else{
+
+
 		  Serial.print( "The mutex not be created.\r\n" );
 	  }
   }
@@ -101,6 +151,26 @@ void setup( void )
 void loop()
 {
   vTaskDelete( NULL );
+}
+
+static void  IRAM_ATTR  vExternalInterruptHandler( void )
+{
+static signed portBASE_TYPE xHigherPriorityTaskWoken;
+xData xSenderStructure;
+
+  xHigherPriorityTaskWoken = pdFALSE;
+
+  xSenderStructure.ucSource = 0x05;
+  xSenderStructure.ucValue1 =0x01;
+
+  xQueueSendToFrontFromISR( xQueue, &xSenderStructure, 0);
+
+  Serial.print( "An Interrupt was generated!!!!!!!!11.\r\n" );
+  if( xHigherPriorityTaskWoken == pdTRUE )
+  {
+	  Serial.print( "Context Switch!!!!!!!11.\r\n" );
+	  portYIELD_FROM_ISR();
+  }
 }
 
 
@@ -414,6 +484,74 @@ static void vCanTx( void *pvParameters )
 	  vTaskDelayUntil( &xLastWakeTime, ( 100/portTICK_PERIOD_MS ) );
 
   }
+}
+
+static void vCanRx( void *pvParameters )
+{
+  xData xSenderStructure;
+  CAN_FRAME msg;
+  //CAN_frame_t rxFrame;
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+
+  for ( ;; )
+  {
+
+	  //Nesta fase já recebe os dados filtrados
+      if(xQueueReceive(callbackQueue, &msg, portMAX_DELAY)==pdTRUE)
+      {
+      	Serial.println("task_LowLevelRX Drumond***************************************");
+      	Serial.println("task_LowLevelRX Drumond******************************************************************");
+      	printFrame(&msg);
+
+      	xSenderStructure.ucSource=msg.id;
+      	xSenderStructure.ucValue1 = msg.data.uint8[0];
+      	xSenderStructure.ucValue2 = msg.data.uint8[1];
+      	xSenderStructure.ucValue3 = msg.data.uint8[2];
+
+      	xQueueSend(xQueuexData, &xSenderStructure, 0 );
+
+      }
+  }
+}
+
+static void vManageValues( void *pvParameters )
+{
+  xData xSenderStructure;
+  portBASE_TYPE xStatus;
+  int i=1;
+  const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+  char accell[10];
+  char lum[5];
+  char hum[5];
+  char temp[5];
+  uint8_t dataT[2] = {0};
+  uint8_t dataH[2] = {0};
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+
+  for ( ;; )
+  {
+      if(xQueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE){
+    	  if(xSenderStructure.ucSource == 6){
+    		  Serial.print("\n*****************************************\n" );
+    		  Serial.print("\nLigar LED\n" );
+    		  Serial.print("\n*****************************************\n" );
+
+    		  digitalWrite(15, uint8_t(xSenderStructure.ucValue1));
+    		  Serial.print("\n*****************************************\n" );
+      }
+
+
+
+
+
+  }
+}
 }
 
 

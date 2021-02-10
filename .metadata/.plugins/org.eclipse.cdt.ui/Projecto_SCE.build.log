@@ -1,4 +1,4 @@
-00:44:16 **** Incremental Build of configuration Release for project Projecto_SCE ****
+17:40:15 **** Incremental Build of configuration Release for project Projecto_SCE ****
 "D:\\SCE\\Sloeber\\arduinoPlugin\\tools\\make\\make" all 
 'Building file: ..\sloeber.ino.cpp'
 'Starting C++ compile'
@@ -12,23 +12,64 @@ D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h:93:42:
 D:\SCE\Sloeber\arduinoPlugin\libraries\can_common-master\src/can_common.h:120:42: warning: type qualifiers ignored on function return type [-Wignored-qualifiers]
          const bool operator[]( int pos ) const
                                           ^
-In file included from ..\sloeber.ino.cpp:28:0:
+In file included from ..\sloeber.ino.cpp:33:0:
 ..\Projecto_SCE.ino: In function 'void vSenderSI7006_HUM(void*)':
-..\Projecto_SCE.ino:113:9: warning: unused variable 'temp' [-Wunused-variable]
+..\Projecto_SCE.ino:183:9: warning: unused variable 'temp' [-Wunused-variable]
    float temp= 0.0;
          ^
-..\Projecto_SCE.ino:114:9: warning: unused variable 'ctemp' [-Wunused-variable]
+..\Projecto_SCE.ino:184:9: warning: unused variable 'ctemp' [-Wunused-variable]
    float ctemp = 0.0;
          ^
-..\Projecto_SCE.ino:115:11: warning: unused variable 'dataT' [-Wunused-variable]
+..\Projecto_SCE.ino:185:11: warning: unused variable 'dataT' [-Wunused-variable]
    uint8_t dataT[2] = {0};
            ^
 ..\Projecto_SCE.ino: In function 'void vSenderSI7006_TEMP(void*)':
-..\Projecto_SCE.ino:173:9: warning: unused variable 'humidity' [-Wunused-variable]
+..\Projecto_SCE.ino:243:9: warning: unused variable 'humidity' [-Wunused-variable]
    float humidity =0.0;
          ^
+..\Projecto_SCE.ino: In function 'void vCanRx(void*)':
+..\Projecto_SCE.ino:494:17: warning: unused variable 'xStatus' [-Wunused-variable]
+   portBASE_TYPE xStatus;
+                 ^
+..\Projecto_SCE.ino:495:20: warning: unused variable 'xTicksToWait' [-Wunused-variable]
+   const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+                    ^
+..\Projecto_SCE.ino:496:14: warning: variable 'xLastWakeTime' set but not used [-Wunused-but-set-variable]
+   TickType_t xLastWakeTime;
+              ^
+..\Projecto_SCE.ino: In function 'void vManageValues(void*)':
+..\Projecto_SCE.ino:524:17: warning: unused variable 'xStatus' [-Wunused-variable]
+   portBASE_TYPE xStatus;
+                 ^
+..\Projecto_SCE.ino:525:7: warning: unused variable 'i' [-Wunused-variable]
+   int i=1;
+       ^
+..\Projecto_SCE.ino:526:20: warning: unused variable 'xTicksToWait' [-Wunused-variable]
+   const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+                    ^
+..\Projecto_SCE.ino:527:8: warning: unused variable 'accell' [-Wunused-variable]
+   char accell[10];
+        ^
+..\Projecto_SCE.ino:528:8: warning: unused variable 'lum' [-Wunused-variable]
+   char lum[5];
+        ^
+..\Projecto_SCE.ino:529:8: warning: unused variable 'hum' [-Wunused-variable]
+   char hum[5];
+        ^
+..\Projecto_SCE.ino:530:8: warning: unused variable 'temp' [-Wunused-variable]
+   char temp[5];
+        ^
+..\Projecto_SCE.ino:531:11: warning: unused variable 'dataT' [-Wunused-variable]
+   uint8_t dataT[2] = {0};
+           ^
+..\Projecto_SCE.ino:532:11: warning: unused variable 'dataH' [-Wunused-variable]
+   uint8_t dataH[2] = {0};
+           ^
+..\Projecto_SCE.ino:533:14: warning: variable 'xLastWakeTime' set but not used [-Wunused-but-set-variable]
+   TickType_t xLastWakeTime;
+              ^
 ..\Projecto_SCE.ino: At global scope:
-..\Projecto_SCE.ino:320:13: warning: 'void vReceiverTask(void*)' defined but not used [-Wunused-function]
+..\Projecto_SCE.ino:390:13: warning: 'void vReceiverTask(void*)' defined but not used [-Wunused-function]
  static void vReceiverTask( void *pvParameters )
              ^
 'Finished building: ..\sloeber.ino.cpp'
@@ -54,21 +95,21 @@ section                                                         size         add
 .rtc_noinit                                                        0   1342177792
 .rtc.force_slow                                                    0   1342177792
 .iram0.vectors                                                  1024   1074266112
-.iram0.text                                                    60492   1074267136
+.iram0.text                                                    60568   1074267136
 .dram0.data                                                     9716   1073470304
 .noinit                                                            0   1073480020
-.dram0.bss                                                      7768   1073480024
-.flash.rodata                                                  61544   1061158944
-.flash.text                                                   125585   1074593816
-.debug_frame                                                   90136            0
-.debug_info                                                  1667165            0
-.debug_abbrev                                                 203446            0
-.debug_loc                                                    545879            0
-.debug_aranges                                                 35056            0
-.debug_ranges                                                  37856            0
+.dram0.bss                                                      7784   1073480024
+.flash.rodata                                                  61984   1061158944
+.flash.text                                                   126377   1074593816
+.debug_frame                                                   90256            0
+.debug_info                                                  1668862            0
+.debug_abbrev                                                 203565            0
+.debug_loc                                                    546035            0
+.debug_aranges                                                 35096            0
+.debug_ranges                                                  37896            0
 .debug_macro                                                  200949            0
-.debug_line                                                   803504            0
-.debug_str                                                    981304            0
+.debug_line                                                   804001            0
+.debug_str                                                    981469            0
 .comment                                                         419            0
 .xtensa.info                                                      56            0
 .xt.prop._ZN7TwoWire5writeEi                                      36            0
@@ -95,6 +136,7 @@ section                                                         size         add
 .xt.prop._ZNK6String3lenEv                                        60            0
 .xt.prop._ZN6String6setLenEi                                      60            0
 .xt.prop._ZNK6String7wbufferEv                                    48            0
+.xt.prop._ZNSt14_Function_baseD2Ev                                48            0
 .xt.prop._ZTISt9exception                                         12            0
 .xt.prop._ZTISt9bad_alloc                                         12            0
 .xt.prop._ZTVN10__cxxabiv117__class_type_infoE                    12            0
@@ -121,11 +163,11 @@ section                                                         size         add
 .xt.prop._ZTVN9__gnu_cxx26__concurrence_unlock_errorE             12            0
 .xt.prop._ZTVSt9bad_alloc                                         12            0
 .xt.prop._ZTVN10__cxxabiv120__si_class_type_infoE                 12            0
-Total                                                        4833071
+Total                                                        4837277
 
 
 'Finished building target: Projecto_SCE'
 ' '
 
-00:44:24 Build Finished. 0 errors, 7 warnings. (took 7s.420ms)
+17:40:22 Build Finished. 0 errors, 20 warnings. (took 6s.248ms)
 

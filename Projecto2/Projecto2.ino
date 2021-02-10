@@ -27,7 +27,7 @@ int old_value[6] = { -1, -1, -1, -1, -1, -1};
 #define mainDELAY_LOOP_COUNT    400000 //( 0xffffff )
 
 
-extern QueueHandle_t callbackQueue;
+
 
 
 
@@ -35,7 +35,13 @@ extern QueueHandle_t callbackQueue;
 static void vTFTPresentation( void *pvParameters );
 static void vTFTDisplayValues( void *pvParameters );
 static void CANRx( void *pvParameters );
+static void CANTx( void *pvParameters );
+static void vWifiKeepAlive( void *pvParameters );
 
+
+extern QueueHandle_t callbackQueue;
+
+QueueHandle_t xQueueBroker;
 QueueHandle_t xQueuexData;
 SemaphoreHandle_t xMutex;
 SemaphoreHandle_t xCountingSemaphore;
@@ -46,18 +52,20 @@ typedef struct
   float ucValue1;
   float ucValue2;
   float ucValue3;
-  char ucSource;
+  int ucSource;
 } xData;
 
 
 /* Definições do LED */
 #define PIN_LED     25
 /* Defines do MQTT */
-#define TOPIC_LED    "topic_on_off_led"
+#define TOPIC_LED    "topic_led"
 #define TOPIC_TEMP   "topic_temp"
 #define TOPIC_LUM    "topic_lum"
 #define TOPIC_ACCELL "topic_accell"
 #define TOPIC_HUM    "topic_hum"
+#define TOPIC_ALARM  "topic_alarm"
+
 
 #define ID_MQTT  "43a21d06b4a0454c903ddeeb425e814f"
 const char* SSID = "MEO-351390"; // SSID / nome da rede WI-FI que deseja se conectar
@@ -107,7 +115,15 @@ void initMQTT(void)
  */
 void mqtt_callback(char* topic, byte* payload, unsigned int length)
 {
+
+    xData xSenderStructure;
     String msg;
+    portBASE_TYPE xStatus;
+    const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+    TickType_t xLastWakeTime;
+    xLastWakeTime = xTaskGetTickCount();
+
+
     /* obtem a string do payload recebido */
     for(int i = 0; i < length; i++)
     {
@@ -117,20 +133,32 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length)
 
     //a MESNSAGEM DEVE SER COLOCADA NUMA QUEUE, E A TAREFA CANTX DEVE SER DESBLOQUEADA
     Serial.print("Chegou a seguinte string via MQTT: ");
+    Serial.print("Chegou a seguinte string via MQTT: ");
+    Serial.print("Chegou a seguinte string via MQTT: ");
+    Serial.print("Chegou a seguinte string via MQTT: ");
+    Serial.print("Chegou a seguinte string via MQTT: ");
     Serial.println(msg);
 
     /* toma ação dependendo da string recebida */
     if (msg.equals("1"))
     {
-        digitalWrite(PIN_LED, HIGH);
+    	xSenderStructure.ucSource= 6;
+    	xSenderStructure.ucValue1=1;
         Serial.print("LED aceso mediante comando MQTT");
-    }
-
-    if (msg.equals("0"))
+    }else if(msg.equals("0"))
     {
-        digitalWrite(PIN_LED, LOW);
+    	xSenderStructure.ucSource= 6;
+		xSenderStructure.ucValue1=0;
         Serial.print("LED apagado mediante comando MQTT");
     }
+    xStatus = xQueueSendToBack( xQueueBroker, &xSenderStructure, 0 );
+    if ( xStatus != pdTRUE )
+    {
+      Serial.print( "mqtt_callback could not send to the queue.\r\n" );
+    }else{
+      Serial.print( "mqtt_callback send to the queue------------------------------.\r\n" );
+    }
+
 }
 
 /* Função: reconecta-se ao broker MQTT (caso ainda não esteja conectado ou em caso de a conexão cair)
@@ -298,7 +326,10 @@ void setup( void )
   while(!Serial);
 
   xQueuexData = xQueueCreate( 10, sizeof( xData ) );
+
+  xQueueBroker = xQueueCreate( 5, sizeof( xData ) );
   xMutex = xSemaphoreCreateMutex();
+
   xCountingSemaphore = xSemaphoreCreateCounting( 10, 0 );
 
   //Inicialização do barramento CAN
@@ -330,14 +361,22 @@ void setup( void )
   initWiFi();
   /* Inicializa a conexao ao broker MQTT */
   initMQTT();
+  VerificaConexoesWiFIEMQTT();
+  MQTT.subscribe(TOPIC_LED);
+  //MQTT.loop();
+
 
 
 
   if ( xQueuexData != NULL ){
 	  if( xMutex != NULL ){
 		  if(xCountingSemaphore != NULL){
-			  Serial.print( "Success\n" );
-			  xTaskCreatePinnedToCore( vTFTPresentation, "vTFTPresentation", 1024, NULL, 2, &xTFTPresentationHandle, 1);
+			  if(xQueueBroker != NULL){
+				  Serial.print( "Success\n" );
+				  xTaskCreatePinnedToCore( vTFTPresentation, "vTFTPresentation", 1024, NULL, 2, &xTFTPresentationHandle, 1);
+			  }else{
+				  Serial.print( "The queueBroker not be created.\r\n" );
+			  }
 		  }else{
 			  Serial.print( "The counting semaphore could not be created\r\n" );
 		  }
@@ -354,6 +393,46 @@ void loop()
 {
   vTaskDelete( NULL );
 }
+
+
+
+
+static void CANTx( void *pvParameters )
+{
+  xData xReceivedStructure;
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+  for ( ;; )
+  {
+
+	  //exemplo do exercício 16
+	    /* Wait for a message to arrive. */
+	    xQueueReceive( xQueueBroker, &xReceivedStructure, portMAX_DELAY );
+	    /* There is no need to check the return value as the task will block
+	    indefinitely and only run again when a message has arrived.  When the
+	    next line is executed there will be a message to be output. */
+
+	  CAN_FRAME txFrame;
+	  txFrame.rtr = 0;
+	  txFrame.id = int(xReceivedStructure.ucSource);
+	  txFrame.extended = false;
+	  txFrame.length = 3;
+	  txFrame.data.uint8[0] = int(xReceivedStructure.ucValue1);
+	  txFrame.data.uint8[1] = int(xReceivedStructure.ucValue2);
+	  txFrame.data.uint8[2] = int(xReceivedStructure.ucValue3);
+
+
+	    Serial.println("SENT ...!");
+
+	  Serial.println(xReceivedStructure.ucSource);
+	  Serial.println(xReceivedStructure.ucValue1);
+	  CAN0.sendFrame(txFrame);
+	  vTaskDelayUntil( &xLastWakeTime, ( 100/portTICK_PERIOD_MS ) );
+
+  }
+}
+
 
 
 /*Esta função é a primeira a correr neste nó e faz a apresentação
@@ -383,9 +462,35 @@ static void vTFTPresentation( void *pvParameters )
 	  //Create other tasks here
       xTaskCreatePinnedToCore( vTFTDisplayValues, "vTFTDisplayValues", 8196, NULL, 1, NULL, 0);
       xTaskCreatePinnedToCore( CANRx, "CANRx", 4098, NULL, 1, NULL, 1);
+      xTaskCreatePinnedToCore( CANTx, "CANTx", 4098, NULL, 1, NULL, 1);
+      xTaskCreatePinnedToCore( vWifiKeepAlive, "vWifiKeepAlive", 4098, NULL, 1, NULL, 1);
 	  vTaskDelete(xTFTPresentationHandle);
-
 }
+
+static void vWifiKeepAlive( void *pvParameters )
+{
+  xData xSenderStructure;
+  CAN_FRAME msg;
+  //CAN_frame_t rxFrame;
+  portBASE_TYPE xStatus;
+  const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
+  TickType_t xLastWakeTime;
+  xLastWakeTime = xTaskGetTickCount();
+
+
+  for ( ;; )
+  {
+	  Serial.print("\nMQTT RECONECT***************************************\r\n" );
+	  Serial.print("\nMQTT RECONECT---------------------------------------\r\n" );
+	  Serial.print("\nMQTT RECONECT***************************************\r\n" );
+	  VerificaConexoesWiFIEMQTT();
+	  //MQTT.subscribe(TOPIC_LED);
+	  MQTT.loop();
+
+	  vTaskDelayUntil( &xLastWakeTime, ( 2000/portTICK_PERIOD_MS ) );
+  }
+}
+
 
 static void CANRx( void *pvParameters )
 {
@@ -424,6 +529,7 @@ static void vTFTDisplayValues( void *pvParameters )
 {
   xData xSenderStructure;
   portBASE_TYPE xStatus;
+  int i=1;
   const TickType_t xTicksToWait = 50 / portTICK_PERIOD_MS;
   char accell[10];
   char lum[5];
@@ -451,6 +557,7 @@ static void vTFTDisplayValues( void *pvParameters )
       if(xQueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE)
       {
     	  VerificaConexoesWiFIEMQTT();
+    	  MQTT.loop();
     	  Serial.print("QueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE\n" );
     	  switch(xSenderStructure.ucSource) {
     	    case 1:
@@ -480,6 +587,21 @@ static void vTFTDisplayValues( void *pvParameters )
     	    	plotPointer(2, int(xSenderStructure.ucValue1));
     	    	sprintf(lum, "%d", int(xSenderStructure.ucValue1));
     	    	MQTT.publish(TOPIC_LUM, lum );
+    	      break;
+    	    case 5:
+    	    	i++;
+    	    	Serial.print("\nFoi gerada uma interrupção externa");
+    	    	if(i>1){
+    	    		i=0;
+    	    		tft.drawString("Alarme ON! ", 0, 0, 4);
+    	    		MQTT.publish(TOPIC_ALARM, "Alarme ON!" );
+
+    	    	}else{
+    	    		MQTT.publish(TOPIC_ALARM, "Alarme OFF!" );
+    	    		tft.fillRect(0, 0, 240, 25,TFT_BLACK );
+    	    		Serial.print("\n**********************************************************************\n****************************************************\n");
+    	    	}
+
     	      break;
     	    default:
     	      // code block

@@ -106,6 +106,8 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length)
  */
 void reconnectMQTT(void)
 {
+
+	Serial.print("* Tentando se conectar ao Broker MQTT: Reconnected ");
     while (!MQTT.connected())
     {
         Serial.print("* Tentando se conectar ao Broker MQTT: ");
@@ -113,7 +115,7 @@ void reconnectMQTT(void)
         if (MQTT.connect(ID_MQTT))
         {
             Serial.println("Conectado com sucesso ao broker MQTT!");
-            MQTT.subscribe(TOPICO_SUBSCRIBE_LED);
+            MQTT.subscribe("topic_led");
         }
         else
         {
@@ -180,6 +182,11 @@ void setup()
 
     /* Inicializa a conexao ao broker MQTT */
     initMQTT();
+
+    VerificaConexoesWiFIEMQTT();
+    delay(100);
+    MQTT.subscribe("topic_led");
+    delay(100);
 }
 
 /* Loop principal */
@@ -199,8 +206,8 @@ void loop()
     //MQTT.publish(TOPICO_PUBLISH_UMIDADE, umidade_str);
 
     /* keep-alive da comunicação com broker MQTT */
-    //MQTT.loop();
+    MQTT.loop();
 
     /* Refaz o ciclo após 2 segundos */
-    delay(50);
+    delay(1000);
 }

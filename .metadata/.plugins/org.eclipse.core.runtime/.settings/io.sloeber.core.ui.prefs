@@ -1,7 +1,7 @@
 Clean\ Serial\ Monitor\ after\ upload=false
-FmStatus=14
+FmStatus=18
 Open\ serial\ connections\ with\ the\ monitor=true
-Serial\ Monitor\ Last\ Used\ Line\ Ending\ index=1
+Serial\ Monitor\ Last\ Used\ Line\ Ending\ index=3
 Serial\ Monitor\ Last\ Used\ auto\ scroll\ setting=true
 Serial\ monitor\ last\ selected\ Port=COM3
 Serial\ monitor\ last\ selected\ rate=115200
