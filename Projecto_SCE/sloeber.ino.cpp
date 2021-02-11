@@ -2,7 +2,7 @@
 //This is a automatic generated file
 //Please do not modify this file
 //If you touch this file your change will be overwritten during the next build
-//This file has been generated on 2021-02-09 17:00:19
+//This file has been generated on 2021-02-10 19:01:54
 
 #include "Arduino.h"
 #include "Arduino.h"
@@ -21,13 +21,12 @@ void gotHundred(CAN_FRAME *frame) ;
 void setup( void ) ;
 void loop() ;
 static void  IRAM_ATTR  vExternalInterruptHandler( void ) ;
-static void vSenderSI7006_HUM( void *pvParameters ) ;
-static void vSenderSI7006_TEMP( void *pvParameters ) ;
-static void vSenderLTR329ALS01( void *pvParameters ) ;
-static void vSenderLIS2HH12( void *pvParameters ) ;
-static void vReceiverTask( void *pvParameters ) ;
+static void vGetHum( void *pvParameters ) ;
+static void vGetTemp( void *pvParameters ) ;
+static void vGetLum( void *pvParameters ) ;
+static void vGetAccell( void *pvParameters ) ;
 static void vCanTx( void *pvParameters ) ;
-static void vCanRx( void *pvParameters ) ;
+static void vMyCanRx( void *pvParameters ) ;
 static void vManageValues( void *pvParameters ) ;
 
 #include "Projecto_SCE.ino"

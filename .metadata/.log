@@ -3136,3 +3136,685 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY io.sloeber.arduino.core 2 0 2021-02-10 17:10:24.636
 !MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 18:36:46.499
+!MESSAGE Serial port COM3 not found. Did you select the right one from the project properties -> Arduino -> Arduino?
+!STACK 0
+jssc.SerialPortException: Port name - COM3; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at io.sloeber.core.api.Serial.connect(Serial.java:169)
+	at io.sloeber.core.api.Serial.connect(Serial.java:160)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:107)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:82)
+	at io.sloeber.ui.monitor.views.SerialMonitor.connectSerial(SerialMonitor.java:523)
+	at io.sloeber.ui.monitor.views.SerialMonitor$7.run(SerialMonitor.java:401)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:474)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:580)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$5(ActionContributionItem.java:451)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4173)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3986)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3585)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:633)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:150)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:660)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:597)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1468)
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 18:36:50.051
+!MESSAGE Serial port COM3 not found. Did you select the right one from the project properties -> Arduino -> Arduino?
+!STACK 0
+jssc.SerialPortException: Port name - COM3; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at io.sloeber.core.api.Serial.connect(Serial.java:169)
+	at io.sloeber.core.api.Serial.connect(Serial.java:160)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:107)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:82)
+	at io.sloeber.ui.monitor.views.SerialMonitor.connectSerial(SerialMonitor.java:523)
+	at io.sloeber.ui.monitor.views.SerialMonitor$7.run(SerialMonitor.java:401)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:474)
+	at org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:580)
+	at org.eclipse.jface.action.ActionContributionItem.lambda$5(ActionContributionItem.java:451)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:4173)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1057)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:3986)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3585)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1160)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1049)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:633)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:338)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:557)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:150)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:203)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:137)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:107)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:400)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:660)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:597)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1468)
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.721
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.727
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.739
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.748
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.756
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.765
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.771
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.780
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.796
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.804
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.809
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.815
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.821
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.827
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.832
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:46.838
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.348
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.353
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.358
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.363
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.367
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.371
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.377
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.381
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.396
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.401
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.405
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.410
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.413
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.418
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.422
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:00:51.426
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.555
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.561
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.566
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.571
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.576
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.581
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.586
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.590
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.600
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.605
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.609
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.613
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.618
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.622
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.626
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:19.631
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.539
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.544
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.550
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.557
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.562
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.567
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.572
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.577
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.587
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.592
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.598
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.602
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.607
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.611
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.616
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:01:22.620
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.051
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.055
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.060
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.064
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.068
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.073
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.078
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.083
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.093
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.097
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.102
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.106
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.110
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.114
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.119
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:05.125
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 19:02:06.985
+!MESSAGE Serial port COM3 not found. Did you select the right one from the project properties -> Arduino -> Arduino?
+!STACK 0
+jssc.SerialPortException: Port name - COM3; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at io.sloeber.core.api.Serial.connect(Serial.java:169)
+	at io.sloeber.core.api.Serial.connect(Serial.java:160)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:107)
+	at io.sloeber.core.api.Serial.<init>(Serial.java:82)
+	at io.sloeber.core.communication.ArduinoSerial.makeArduinoUploadready(ArduinoSerial.java:269)
+	at io.sloeber.core.tools.uploaders.arduinoUploader.uploadUsingPreferences(arduinoUploader.java:59)
+	at io.sloeber.core.tools.uploaders.UploadSketchWrapper$UploadJobWrapper.run(UploadSketchWrapper.java:209)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-10 19:02:06.990
+!MESSAGE Unable to open Serial port "COM3"COM3
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 19:02:10.037
+!MESSAGE Serial port COM3 not found. Did you select the right one from the project properties -> Arduino -> Arduino?
+!STACK 0
+jssc.SerialPortException: Port name - COM3; Method name - openPort(); Exception type - Port not found.
+	at jssc.SerialPort.openPort(SerialPort.java:167)
+	at io.sloeber.core.api.Serial.connect(Serial.java:169)
+	at io.sloeber.ui.monitor.views.SerialMonitor.ResumePort(SerialMonitor.java:596)
+	at io.sloeber.core.api.SerialManager.StartSerialMonitor(SerialManager.java:48)
+	at io.sloeber.core.tools.uploaders.UploadSketchWrapper$UploadJobWrapper.run(UploadSketchWrapper.java:223)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 19:02:10.044
+!MESSAGE failed to upload "L/Projecto_SCE/Projecto_SCE}/Release/Projecto_SCE.hex"
+
+!ENTRY io.sloeber.arduino.core 4 0 2021-02-10 19:02:10.048
+!MESSAGE failed to upload "L/Projecto_SCE/Projecto_SCE}/Release/Projecto_SCE.hex"
+!SESSION 2021-02-11 03:26:54.604 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_131
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Framework arguments:  -perspective io.sloeber.application.perspective
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -perspective io.sloeber.application.perspective
+
+!ENTRY org.eclipse.egit.ui 2 0 2021-02-11 03:27:14.616
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\2181042'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.717
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.733
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.733
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.749
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.749
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.764
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.764
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.780
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.814
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.822
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.830
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.838
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.838
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.838
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.854
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.854
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.875
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.883
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.883
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.892
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.892
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.892
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.907
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.907
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.925
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.933
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.933
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.941
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.949
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.949
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.959
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.959
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.974
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.974
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.990
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.990
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.990
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:05.990
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.005
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.005
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.022
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.022
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.022
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.041
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.041
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.041
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.041
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.057
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.073
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.073
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.073
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.088
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.088
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.088
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.088
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.104
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.104
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.119
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.119
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.135
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.135
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.142
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.142
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.142
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.157
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.173
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.173
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.173
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.189
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.189
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.189
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.204
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.204
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.220
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.220
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.220
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.235
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.235
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.242
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.242
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.258
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.258
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.273
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.273
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.289
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.289
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.289
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.304
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.304
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.320
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.325
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.333
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.333
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.341
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.341
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.349
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.359
+!MESSAGE Multiple versions of Library "Adafruit_ILI9341" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.359
+!MESSAGE Multiple versions of Library "arduino-CAN-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.359
+!MESSAGE Multiple versions of Library "can_common-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.374
+!MESSAGE Multiple versions of Library "Cooperative_Multitasking" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.374
+!MESSAGE Multiple versions of Library "ESP32_BLE_Arduino" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.374
+!MESSAGE Multiple versions of Library "esp32_can-master" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.390
+!MESSAGE Multiple versions of Library "PubSubClient" exist on disk. This is not supported.
+
+!ENTRY io.sloeber.arduino.core 2 0 2021-02-11 03:28:06.390
+!MESSAGE Multiple versions of Library "TFT_eSPI" exist on disk. This is not supported.

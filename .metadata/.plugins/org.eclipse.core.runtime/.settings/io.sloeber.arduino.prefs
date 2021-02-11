@@ -1,7 +1,7 @@
 Automatically\ import\ libraries=true
-FbStatus=892
-FsStatus=20
-FuStatus=715
+FbStatus=903
+FsStatus=21
+FuStatus=722
 JANTJE.TEMPLATE_USE_DEFAULT=defaultIno
 Last\ Used\ Upload\ port=COM3
 Last\ used\ Board=esp32

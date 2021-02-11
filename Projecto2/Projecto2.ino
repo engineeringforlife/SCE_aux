@@ -42,7 +42,7 @@ static void vWifiKeepAlive( void *pvParameters );
 extern QueueHandle_t callbackQueue;
 
 QueueHandle_t xQueueBroker;
-QueueHandle_t xQueuexData;
+QueueHandle_t xDataQueue;
 SemaphoreHandle_t xMutex;
 SemaphoreHandle_t xCountingSemaphore;
 TaskHandle_t xTFTPresentationHandle;
@@ -325,7 +325,7 @@ void setup( void )
   Serial.begin(115200);
   while(!Serial);
 
-  xQueuexData = xQueueCreate( 10, sizeof( xData ) );
+  xDataQueue = xQueueCreate( 10, sizeof( xData ) );
 
   xQueueBroker = xQueueCreate( 5, sizeof( xData ) );
   xMutex = xSemaphoreCreateMutex();
@@ -368,7 +368,7 @@ void setup( void )
 
 
 
-  if ( xQueuexData != NULL ){
+  if ( xDataQueue != NULL ){
 	  if( xMutex != NULL ){
 		  if(xCountingSemaphore != NULL){
 			  if(xQueueBroker != NULL){
@@ -517,7 +517,7 @@ static void CANRx( void *pvParameters )
       	xSenderStructure.ucValue2 = msg.data.uint8[1];
       	xSenderStructure.ucValue3 = msg.data.uint8[2];
 
-      	xQueueSend(xQueuexData, &xSenderStructure, 0 );
+      	xQueueSend(xDataQueue, &xSenderStructure, 0 );
 
       }
   }
@@ -554,7 +554,7 @@ static void vTFTDisplayValues( void *pvParameters )
   {
 
 
-      if(xQueueReceive(xQueuexData, &xSenderStructure, portMAX_DELAY)==pdTRUE)
+      if(xQueueReceive(xDataQueue, &xSenderStructure, portMAX_DELAY)==pdTRUE)
       {
     	  VerificaConexoesWiFIEMQTT();
     	  MQTT.loop();

@@ -1,5 +1,6 @@
+Board\ plotter\ filter\ on\ off=true
 Clean\ Serial\ Monitor\ after\ upload=false
-FmStatus=18
+FmStatus=19
 Open\ serial\ connections\ with\ the\ monitor=true
 Serial\ Monitor\ Last\ Used\ Line\ Ending\ index=3
 Serial\ Monitor\ Last\ Used\ auto\ scroll\ setting=true
